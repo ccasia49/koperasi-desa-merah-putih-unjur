@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesanan - KDMP Unjur</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f5f7;
+            color: #222;
+        }
+
+        header {
+            background: #b40000;
+            color: white;
+            padding: 18px 20px;
+        }
+
+        header h2 {
+            margin: 0;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.08);
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        .total {
+            background: #fbeaea;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #b40000;
+        }
+
+        button {
+            border: none;
+            padding: 11px 16px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .btn-simpan {
+            background: #b40000;
+            color: white;
+        }
+
+        .btn-simpan:hover {
+            background: #8f0000;
+        }
+
+        .btn-kembali {
+            display: inline-block;
+            background: white;
+            color: #b40000;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 7px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 850px;
+        }
+
+        th,
+        td {
+            padding: 11px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #b40000;
+            color: white;
+        }
+
+        .status {
+            padding: 5px 9px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .menunggu {
+            background: #fff1c7;
+            color: #9a7000;
+        }
+
+        .diproses {
+            background: #dcecff;
+            color: #1760a8;
+        }
+
+        .selesai {
+            background: #dff5e3;
+            color: #197331;
+        }
+
+        .dibatalkan {
+            background: #f5dddd;
+            color: #a00000;
+        }
+
+        .btn-hapus {
+            background: #b40000;
+            color: white;
+            padding: 7px 10px;
+            margin: 0;
+        }
+
+        .kosong {
+            text-align: center;
+            padding: 25px;
+            color: #777;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 12px;
+            }
+
+            .card {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>Pesanan</h2>
+    <p>Koperasi Desa Merah Putih Unjur</p>
+</header>
+
+<div class="container">
+
+    <a href="index.html" class="btn-kembali">
+        ← Kembali ke Dashboard
+    </a>
+
+
+    <!-- FORM PESANAN -->
+
+    <div class="card">
+
+        <h3>Tambah Pesanan</h3>
+
+        <div class="form-grid">
+
+            <div>
+                <label>Pembeli / Anggota</label>
+
+                <select id="anggota">
+                    <option value="">Pilih pembeli</option>
+                </select>
+            </div>
+
+
+            <div>
+                <label>Produk</label>
+
+                <select id="produk">
+                    <option value="">Pilih produk</option>
+                </select>
+            </div>
+
+
+            <div>
+                <label>Jumlah</label>
+
+                <input
+                    type="number"
+                    id="jumlah"
+                    min="1"
+                    value="1"
+                >
+            </div>
+
+
+            <div>
+                <label>Harga Satuan</label>
+
+                <input
+                    type="number"
+                    id="harga"
+                    readonly
+                >
+            </div>
+
+        </div>
+
+
+        <div class="total">
+            Total: <span id="total">Rp0</span>
+        </div>
+
+
+        <button
+            class="btn-simpan"
+            onclick="simpanPesanan()"
+        >
+            Simpan Pesanan
+        </button>
+
+    </div>
+
+
+    <!-- DAFTAR PESANAN -->
+
+    <div class="card">
+
+        <h3>Daftar Pesanan</h3>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Pembeli</th>
+                        <th>Produk</th>
+                        <th>Jumlah</th>
+                        <th>Harga</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+
+                <tbody id="daftarPesanan">
+
+                    <tr>
+                        <td colspan="8" class="kosong">
+                            Memuat data...
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const API = "http://localhost:3000";
+
+let daftarProduk = [];
+let daftarAnggota = [];
+
+
+// =========================
+// LOAD DATA
+// =========================
+
+async function loadData() {
+
+    try {
+
+        const responseProduk =
+            await fetch(API + "/api/produk");
+
+        daftarProduk =
+            await responseProduk.json();
+
+
+        const responseAnggota =
+            await fetch(API + "/api/anggota");
+
+        daftarAnggota =
+            await responseAnggota.json();
+
+
+        isiProduk();
+        isiAnggota();
+        loadPesanan();
+
+    } catch (error) {
+
+        alert("Tidak dapat terhubung ke server.");
+
+        console.error(error);
+
+    }
+
+}
+
+
+// =========================
+// ISI PRODUK
+// =========================
+
+function isiProduk() {
+
+    const select =
+        document.getElementById("produk");
+
+    select.innerHTML =
+        '<option value="">Pilih produk</option>';
+
+
+    daftarProduk.forEach(produk => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = produk.id;
+
+        option.textContent =
+            produk.nama +
+            " - Rp" +
+            Number(produk.harga).toLocaleString("id-ID");
+
+        select.appendChild(option);
+
+    });
+
+}
+
+
+// =========================
+// ISI ANGGOTA
+// =========================
+
+function isiAnggota() {
+
+    const select =
+        document.getElementById("anggota");
+
+    select.innerHTML =
+        '<option value="">Pilih pembeli</option>';
+
+
+    daftarAnggota.forEach(anggota => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = anggota.id;
+
+        option.textContent =
+            anggota.nomor
+            ? anggota.nomor + " - " + anggota.nama
+            : anggota.nama;
+
+        select.appendChild(option);
+
+    });
+
+}
+
+
+// =========================
+// PRODUK DIPILIH
+// =========================
+
+document
+.getElementById("produk")
+.addEventListener("change", function() {
+
+    const produk =
+        daftarProduk.find(
+            p => p.id == this.value
+        );
+
+
+    if (produk) {
+
+        document.getElementById("harga").value =
+            produk.harga;
+
+    } else {
+
+        document.getElementById("harga").value =
+            0;
+
+    }
+
+
+    hitungTotal();
+
+});
+
+
+// =========================
+// JUMLAH BERUBAH
+// =========================
+
+document
+.getElementById("jumlah")
+.addEventListener("input", hitungTotal);
+
+
+// =========================
+// HITUNG TOTAL
+// =========================
+
+function hitungTotal() {
+
+    const harga =
+        Number(
+            document.getElementById("harga").value
+        ) || 0;
+
+
+    const jumlah =
+        Number(
+            document.getElementById("jumlah").value
+        ) || 0;
+
+
+    const total =
+        harga * jumlah;
+
+
+    document.getElementById("total").innerText =
+        "Rp" + total.toLocaleString("id-ID");
+
+}
+
+
+// =========================
+// SIMPAN PESANAN
+// =========================
+
+async function simpanPesanan() {
+
+    const anggotaId =
+        document.getElementById("anggota").value;
+
+
+    const produkId =
+        document.getElementById("produk").value;
+
+
+    const jumlah =
+        Number(
+            document.getElementById("jumlah").value
+        );
+
+
+    const produk =
+        daftarProduk.find(
+            p => p.id == produkId
+        );
+
+
+    const anggota =
+        daftarAnggota.find(
+            a => a.id == anggotaId
+        );
+
+
+    if (!anggotaId) {
+
+        alert("Pilih pembeli terlebih dahulu.");
+
+        return;
+
+    }
+
+
+    if (!produkId) {
+
+        alert("Pilih produk terlebih dahulu.");
+
+        return;
+
+    }
+
+
+    if (!jumlah || jumlah < 1) {
+
+        alert("Jumlah harus minimal 1.");
+
+        return;
+
+    }
+
+
+    const harga =
+        Number(produk.harga) || 0;
+
+
+    const total =
+        harga * jumlah;
+
+
+    const data = {
+
+        namaPembeli:
+            anggota.nama,
+
+        anggotaId:
+            anggota.id,
+
+        produkId:
+            produk.id,
+
+        namaProduk:
+            produk.nama,
+
+        jumlah:
+            jumlah,
+
+        harga:
+            harga,
+
+        total:
+            total,
+
+        status:
+            "Menunggu"
+
+    };
+
+
+    try {
+
+        const response =
+            await fetch(
+                API + "/api/pesanan",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify(data)
+                }
+            );
+
+
+        const hasil =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            alert(
+                hasil.error ||
+                "Gagal menyimpan pesanan."
+            );
+
+            return;
+
+        }
+
+
+        alert("Pesanan berhasil disimpan.");
+
+
+        document.getElementById("anggota").value = "";
+
+        document.getElementById("produk").value = "";
+
+        document.getElementById("jumlah").value = 1;
+
+        document.getElementById("harga").value = 0;
+
+        hitungTotal();
+
+
+        loadPesanan();
+
+
+    } catch (error) {
+
+        alert("Server tidak terhubung.");
+
+        console.error(error);
+
+    }
+
+}
+
+
+// =========================
+// LOAD PESANAN
+// =========================
+
+async function loadPesanan() {
+
+    try {
+
+        const response =
+            await fetch(
+                API + "/api/pesanan"
+            );
+
+
+        const pesanan =
+            await response.json();
+
+
+        const tbody =
+            document.getElementById(
+                "daftarPesanan"
+            );
+
+
+        tbody.innerHTML = "";
+
+
+        if (pesanan.length === 0) {
+
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="8" class="kosong">
+                        Belum ada pesanan.
+                    </td>
+                </tr>
+            `;
+
+            return;
+
+        }
+
+
+        pesanan.forEach((p, index) => {
+
+            const tr =
+                document.createElement("tr");
+
+
+            tr.innerHTML = `
+
+                <td>
+                    ${index + 1}
+                </td>
+
+                <td>
+                    ${p.namaPembeli}
+                </td>
+
+                <td>
+                    ${p.namaProduk}
+                </td>
+
+                <td>
+                    ${p.jumlah}
+                </td>
+
+                <td>
+                    Rp${Number(p.harga).toLocaleString("id-ID")}
+                </td>
+
+                <td>
+                    <b>
+                        Rp${Number(p.total).toLocaleString("id-ID")}
+                    </b>
+                </td>
+
+                <td>
+                    <select
+                        onchange="ubahStatus(${p.id}, this.value)"
+                    >
+                        <option
+                            ${p.status === "Menunggu" ? "selected" : ""}
+                        >
+                            Menunggu
+                        </option>
+
+                        <option
+                            ${p.status === "Diproses" ? "selected" : ""}
+                        >
+                            Diproses
+                        </option>
+
+                        <option
+                            ${p.status === "Selesai" ? "selected" : ""}
+                        >
+                            Selesai
+                        </option>
+
+                        <option
+                            ${p.status === "Dibatalkan" ? "selected" : ""}
+                        >
+                            Dibatalkan
+                        </option>
+                    </select>
+                </td>
+
+                <td>
+                    <button
+                        class="btn-hapus"
+                        onclick="hapusPesanan(${p.id})"
+                    >
+                        Hapus
+                    </button>
+                </td>
+
+            `;
+
+
+            tbody.appendChild(tr);
+
+        });
+
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
+
+// =========================
+// UBAH STATUS
+// =========================
+
+async function ubahStatus(id, status) {
+
+    try {
+
+        const response =
+            await fetch(
+                API + "/api/pesanan/" + id,
+                {
+                    method: "PUT",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+                            status: status
+                        })
+                }
+            );
+
+
+        if (response.ok) {
+
+            loadPesanan();
+
+        } else {
+
+            alert("Gagal mengubah status.");
+
+        }
+
+
+    } catch (error) {
+
+        alert("Server tidak terhubung.");
+
+    }
+
+}
+
+
+// =========================
+// HAPUS PESANAN
+// =========================
+
+async function hapusPesanan(id) {
+
+    if (
+        !confirm(
+            "Yakin ingin menghapus pesanan ini?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                API + "/api/pesanan/" + id,
+                {
+                    method: "DELETE"
+                }
+            );
+
+
+        if (response.ok) {
+
+            loadPesanan();
+
+        } else {
+
+            alert("Gagal menghapus pesanan.");
+
+        }
+
+
+    } catch (error) {
+
+        alert("Server tidak terhubung.");
+
+    }
+
+}
+
+
+// Jalankan
+
+loadData();
+
+</script>
+
+</body>
+</html>

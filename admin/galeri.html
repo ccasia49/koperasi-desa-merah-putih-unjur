@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Galeri - KDMP Unjur</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+        }
+
+        header {
+            background: #b40000;
+            color: white;
+            padding: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        header p {
+            margin: 6px 0 0;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #b40000;
+        }
+
+        label {
+            display: block;
+            margin-top: 14px;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        button {
+            border: none;
+            padding: 11px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-upload {
+            margin-top: 18px;
+            background: #b40000;
+            color: white;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .btn-upload:hover {
+            background: #8f0000;
+        }
+
+        .btn-edit {
+            background: #e6a700;
+            color: white;
+        }
+
+        .btn-hapus {
+            background: #d00000;
+            color: white;
+        }
+
+        .btn-batal {
+            background: #777;
+            color: white;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        #preview {
+            display: none;
+            width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            margin-top: 15px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .galeri {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            background: #eee;
+        }
+
+        .isi {
+            padding: 14px;
+        }
+
+        .isi h3 {
+            margin: 0 0 10px;
+            font-size: 17px;
+        }
+
+        .tanggal {
+            font-size: 12px;
+            color: #777;
+            margin-bottom: 12px;
+        }
+
+        .aksi {
+            display: flex;
+            gap: 8px;
+        }
+
+        .aksi button {
+            flex: 1;
+        }
+
+        .kosong {
+            text-align: center;
+            color: #777;
+            padding: 30px;
+        }
+
+        .pesan {
+            margin-top: 12px;
+            padding: 10px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .sukses {
+            display: block;
+            background: #d9f7df;
+            color: #176b29;
+        }
+
+        .error {
+            display: block;
+            background: #ffdede;
+            color: #9b0000;
+        }
+
+        .kembali {
+            display: inline-block;
+            margin-bottom: 15px;
+            text-decoration: none;
+            color: #b40000;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Galeri Admin</h1>
+    <p>Koperasi Desa Merah Putih Unjur</p>
+</header>
+
+<div class="container">
+
+    <a href="index.html" class="kembali">
+        ← Kembali ke Dashboard
+    </a>
+
+    <div class="card">
+
+        <h2 id="judulForm">Tambah Foto Galeri</h2>
+
+        <form id="formGaleri">
+
+            <label for="judul">
+                Judul Foto
+            </label>
+
+            <input
+                type="text"
+                id="judul"
+                placeholder="Contoh: Kegiatan RAT Tahun Buku 2025"
+                required
+            >
+
+            <label for="gambar">
+                Pilih Foto dari HP
+            </label>
+
+            <input
+                type="file"
+                id="gambar"
+                accept="image/jpeg,image/png,image/webp"
+            >
+
+            <img id="preview" alt="Preview foto">
+
+            <button
+                type="submit"
+                class="btn-upload"
+                id="btnSimpan"
+            >
+                📷 Upload Foto
+            </button>
+
+            <button
+                type="button"
+                class="btn-batal"
+                id="btnBatal"
+                style="display:none;"
+            >
+                Batal Edit
+            </button>
+
+            <div id="pesan" class="pesan"></div>
+
+        </form>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Foto Galeri</h2>
+
+        <div id="galeri" class="galeri"></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const API = "http://localhost:3000/api";
+
+let idEdit = null;
+
+
+// ==================================================
+// ELEMEN
+// ==================================================
+
+const form = document.getElementById("formGaleri");
+const judul = document.getElementById("judul");
+const gambar = document.getElementById("gambar");
+const preview = document.getElementById("preview");
+const galeri = document.getElementById("galeri");
+const pesan = document.getElementById("pesan");
+const btnSimpan = document.getElementById("btnSimpan");
+const btnBatal = document.getElementById("btnBatal");
+const judulForm = document.getElementById("judulForm");
+
+
+// ==================================================
+// PREVIEW FOTO
+// ==================================================
+
+gambar.addEventListener("change", function () {
+
+    const file = this.files[0];
+
+    if (!file) {
+        preview.style.display = "none";
+        preview.src = "";
+        return;
+    }
+
+    preview.src = URL.createObjectURL(file);
+
+    preview.style.display = "block";
+
+});
+
+
+// ==================================================
+// PESAN
+// ==================================================
+
+function tampilPesan(teks, tipe) {
+
+    pesan.textContent = teks;
+
+    pesan.className =
+        "pesan " + tipe;
+
+}
+
+
+// ==================================================
+// LOAD GALERI
+// ==================================================
+
+async function loadGaleri() {
+
+    try {
+
+        const response =
+            await fetch(API + "/galeri");
+
+        if (!response.ok) {
+            throw new Error("Server error");
+        }
+
+        const data =
+            await response.json();
+
+        tampilkanGaleri(data);
+
+    } catch (error) {
+
+        galeri.innerHTML = `
+            <div class="kosong">
+                Tidak dapat terhubung ke server.
+            </div>
+        `;
+
+    }
+
+}
+
+
+// ==================================================
+// TAMPILKAN GALERI
+// ==================================================
+
+function tampilkanGaleri(data) {
+
+    if (!data || data.length === 0) {
+
+        galeri.innerHTML = `
+            <div class="kosong">
+                Belum ada foto galeri.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    galeri.innerHTML =
+        data.map(item => `
+
+            <div class="item">
+
+                <img
+                    src="${escapeHtml(item.gambar)}"
+                    alt="${escapeHtml(item.judul)}"
+                    onerror="this.src=''; this.alt='Foto tidak dapat dimuat';"
+                >
+
+                <div class="isi">
+
+                    <h3>
+                        ${escapeHtml(item.judul)}
+                    </h3>
+
+                    <div class="tanggal">
+                        ${formatTanggal(item.tanggal)}
+                    </div>
+
+                    <div class="aksi">
+
+                        <button
+                            class="btn-edit"
+                            onclick="editGaleri(${item.id})"
+                        >
+                            Edit
+                        </button>
+
+                        <button
+                            class="btn-hapus"
+                            onclick="hapusGaleri(${item.id})"
+                        >
+                            Hapus
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `).join("");
+
+}
+
+
+// ==================================================
+// UPLOAD / EDIT
+// ==================================================
+
+form.addEventListener("submit", async function (e) {
+
+    e.preventDefault();
+
+    const namaJudul =
+        judul.value.trim();
+
+    if (!namaJudul) {
+        tampilPesan(
+            "Judul foto wajib diisi.",
+            "error"
+        );
+        return;
+    }
+
+
+    try {
+
+        btnSimpan.disabled = true;
+
+        if (idEdit === null) {
+
+            // ==========================================
+            // TAMBAH FOTO
+            // ==========================================
+
+            if (!gambar.files[0]) {
+
+                tampilPesan(
+                    "Silakan pilih foto dari HP.",
+                    "error"
+                );
+
+                btnSimpan.disabled = false;
+
+                return;
+            }
+
+
+            const formData =
+                new FormData();
+
+            formData.append(
+                "judul",
+                namaJudul
+            );
+
+            formData.append(
+                "gambar",
+                gambar.files[0]
+            );
+
+
+            const response =
+                await fetch(
+                    API + "/galeri/upload",
+                    {
+                        method: "POST",
+                        body: formData
+                    }
+                );
+
+
+            const hasil =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    hasil.message ||
+                    hasil.error ||
+                    "Upload gagal"
+                );
+
+            }
+
+
+            tampilPesan(
+                "Foto berhasil diupload.",
+                "sukses"
+            );
+
+        } else {
+
+            // ==========================================
+            // EDIT FOTO
+            // ==========================================
+
+            const formData =
+                new FormData();
+
+            formData.append(
+                "judul",
+                namaJudul
+            );
+
+
+            if (gambar.files[0]) {
+
+                formData.append(
+                    "gambar",
+                    gambar.files[0]
+                );
+
+            }
+
+
+            const response =
+                await fetch(
+                    API + "/galeri/" + idEdit,
+                    {
+                        method: "PUT",
+                        body: formData
+                    }
+                );
+
+
+            const hasil =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    hasil.message ||
+                    hasil.error ||
+                    "Edit gagal"
+                );
+
+            }
+
+
+            tampilPesan(
+                "Foto berhasil diperbarui.",
+                "sukses"
+            );
+
+        }
+
+
+        resetForm();
+
+        await loadGaleri();
+
+
+    } catch (error) {
+
+        tampilPesan(
+            error.message ||
+            "Terjadi kesalahan.",
+            "error"
+        );
+
+    }
+
+
+    btnSimpan.disabled = false;
+
+});
+
+
+// ==================================================
+// EDIT
+// ==================================================
+
+async function editGaleri(id) {
+
+    try {
+
+        const response =
+            await fetch(API + "/galeri");
+
+        const data =
+            await response.json();
+
+        const item =
+            data.find(
+                x => Number(x.id) === Number(id)
+            );
+
+        if (!item) {
+            return;
+        }
+
+
+        idEdit = id;
+
+        judul.value =
+            item.judul || "";
+
+
+        judulForm.textContent =
+            "Edit Foto Galeri";
+
+        btnSimpan.textContent =
+            "💾 Simpan Perubahan";
+
+        btnBatal.style.display =
+            "block";
+
+
+        preview.src =
+            item.gambar || "";
+
+        preview.style.display =
+            item.gambar ? "block" : "none";
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+
+    } catch (error) {
+
+        tampilPesan(
+            "Gagal mengambil data foto.",
+            "error"
+        );
+
+    }
+
+}
+
+
+// ==================================================
+// BATAL EDIT
+// ==================================================
+
+btnBatal.addEventListener(
+    "click",
+    function () {
+
+        resetForm();
+
+    }
+);
+
+
+// ==================================================
+// RESET FORM
+// ==================================================
+
+function resetForm() {
+
+    idEdit = null;
+
+    form.reset();
+
+    preview.src = "";
+
+    preview.style.display =
+        "none";
+
+    judulForm.textContent =
+        "Tambah Foto Galeri";
+
+    btnSimpan.textContent =
+        "📷 Upload Foto";
+
+    btnBatal.style.display =
+        "none";
+
+}
+
+
+// ==================================================
+// HAPUS
+// ==================================================
+
+async function hapusGaleri(id) {
+
+    if (!confirm(
+        "Yakin ingin menghapus foto ini?"
+    )) {
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                API + "/galeri/" + id,
+                {
+                    method: "DELETE"
+                }
+            );
+
+
+        const hasil =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                hasil.message ||
+                hasil.error ||
+                "Gagal menghapus"
+            );
+
+        }
+
+
+        tampilPesan(
+            "Foto berhasil dihapus.",
+            "sukses"
+        );
+
+        loadGaleri();
+
+
+    } catch (error) {
+
+        tampilPesan(
+            error.message ||
+            "Gagal menghapus foto.",
+            "error"
+        );
+
+    }
+
+}
+
+
+// ==================================================
+// FORMAT TANGGAL
+// ==================================================
+
+function formatTanggal(tanggal) {
+
+    if (!tanggal) {
+        return "";
+    }
+
+    return new Date(tanggal)
+        .toLocaleDateString(
+            "id-ID",
+            {
+                day: "2-digit",
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+}
+
+
+// ==================================================
+// KEAMANAN HTML
+// ==================================================
+
+function escapeHtml(teks) {
+
+    if (teks === undefined ||
+        teks === null) {
+        return "";
+    }
+
+    return String(teks)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+// ==================================================
+// MULAI
+// ==================================================
+
+loadGaleri();
+
+</script>
+
+</body>
+</html>

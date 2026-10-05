@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keuangan - KDMP Unjur</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f5f7;
+            color: #222;
+        }
+
+        header {
+            background: #b40000;
+            color: white;
+            padding: 18px 20px;
+        }
+
+        header h2 {
+            margin: 0;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .kembali {
+            display: inline-block;
+            background: white;
+            color: #b40000;
+            padding: 10px 15px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .ringkasan {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.08);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            font-size: 16px;
+        }
+
+        .angka {
+            font-size: 27px;
+            font-weight: bold;
+        }
+
+        .pendapatan {
+            color: green;
+        }
+
+        .pengeluaran {
+            color: #b40000;
+        }
+
+        .saldo {
+            color: #1760a8;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        button {
+            border: none;
+            padding: 11px 16px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .btn-simpan {
+            background: #b40000;
+            color: white;
+        }
+
+        .btn-hapus {
+            background: #b40000;
+            color: white;
+            padding: 7px 10px;
+            margin: 0;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 750px;
+        }
+
+        th,
+        td {
+            padding: 11px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #b40000;
+            color: white;
+        }
+
+        .kosong {
+            text-align: center;
+            padding: 25px;
+            color: #777;
+        }
+
+        .masuk {
+            color: green;
+            font-weight: bold;
+        }
+
+        .keluar {
+            color: #b40000;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+
+            .ringkasan {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>Keuangan</h2>
+    <p>Koperasi Desa Merah Putih Unjur</p>
+</header>
+
+
+<div class="container">
+
+    <a href="index.html" class="kembali">
+        ← Kembali ke Dashboard
+    </a>
+
+
+    <!-- RINGKASAN -->
+
+    <div class="ringkasan">
+
+        <div class="card">
+            <h3>Total Pendapatan</h3>
+            <div
+                class="angka pendapatan"
+                id="totalPendapatan"
+            >
+                Rp0
+            </div>
+        </div>
+
+
+        <div class="card">
+            <h3>Total Pengeluaran</h3>
+            <div
+                class="angka pengeluaran"
+                id="totalPengeluaran"
+            >
+                Rp0
+            </div>
+        </div>
+
+
+        <div class="card">
+            <h3>Saldo</h3>
+            <div
+                class="angka saldo"
+                id="saldo"
+            >
+                Rp0
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- TAMBAH TRANSAKSI -->
+
+    <div class="card">
+
+        <h3>Tambah Transaksi</h3>
+
+        <div class="form-grid">
+
+            <div>
+                <label>Jenis</label>
+
+                <select id="jenis">
+
+                    <option value="Pendapatan">
+                        Pendapatan
+                    </option>
+
+                    <option value="Pengeluaran">
+                        Pengeluaran
+                    </option>
+
+                </select>
+            </div>
+
+
+            <div>
+                <label>Kategori</label>
+
+                <select id="kategori">
+
+                    <option value="Penjualan">
+                        Penjualan
+                    </option>
+
+                    <option value="Pembelian">
+                        Pembelian
+                    </option>
+
+                    <option value="Operasional">
+                        Operasional
+                    </option>
+
+                    <option value="Gaji">
+                        Gaji
+                    </option>
+
+                    <option value="Lainnya">
+                        Lainnya
+                    </option>
+
+                </select>
+            </div>
+
+
+            <div>
+                <label>Keterangan</label>
+
+                <input
+                    type="text"
+                    id="keterangan"
+                    placeholder="Contoh: Pembelian beras"
+                >
+            </div>
+
+
+            <div>
+                <label>Jumlah (Rp)</label>
+
+                <input
+                    type="number"
+                    id="jumlah"
+                    min="0"
+                    placeholder="0"
+                >
+            </div>
+
+        </div>
+
+
+        <button
+            class="btn-simpan"
+            onclick="simpanTransaksi()"
+        >
+            Simpan Transaksi
+        </button>
+
+    </div>
+
+
+    <!-- DAFTAR TRANSAKSI -->
+
+    <div class="card">
+
+        <h3>Daftar Transaksi</h3>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>No</th>
+                        <th>Tanggal</th>
+                        <th>Jenis</th>
+                        <th>Kategori</th>
+                        <th>Keterangan</th>
+                        <th>Jumlah</th>
+                        <th>Aksi</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="daftarTransaksi">
+
+                    <tr>
+                        <td
+                            colspan="7"
+                            class="kosong"
+                        >
+                            Memuat data...
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const API =
+    "http://localhost:3000";
+
+
+// ==================================================
+// FORMAT RUPIAH
+// ==================================================
+
+function rupiah(angka) {
+
+    return "Rp" +
+        Number(angka || 0)
+            .toLocaleString("id-ID");
+
+}
+
+
+// ==================================================
+// LOAD TRANSAKSI
+// ==================================================
+
+async function loadTransaksi() {
+
+    try {
+
+        const response =
+            await fetch(
+                API + "/api/transaksi"
+            );
+
+
+        const transaksi =
+            await response.json();
+
+
+        hitungKeuangan(transaksi);
+
+        tampilkanTransaksi(transaksi);
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Tidak dapat terhubung ke server."
+        );
+
+    }
+
+}
+
+
+// ==================================================
+// HITUNG KEUANGAN
+// ==================================================
+
+function hitungKeuangan(transaksi) {
+
+    let pendapatan = 0;
+
+    let pengeluaran = 0;
+
+
+    transaksi.forEach(t => {
+
+        const jumlah =
+            Number(t.jumlah) || 0;
+
+
+        if (t.jenis === "Pendapatan") {
+
+            pendapatan += jumlah;
+
+        }
+
+
+        if (t.jenis === "Pengeluaran") {
+
+            pengeluaran += jumlah;
+
+        }
+
+    });
+
+
+    const saldo =
+        pendapatan - pengeluaran;
+
+
+    document.getElementById(
+        "totalPendapatan"
+    ).innerText =
+        rupiah(pendapatan);
+
+
+    document.getElementById(
+        "totalPengeluaran"
+    ).innerText =
+        rupiah(pengeluaran);
+
+
+    document.getElementById(
+        "saldo"
+    ).innerText =
+        rupiah(saldo);
+
+}
+
+
+// ==================================================
+// TAMPILKAN TRANSAKSI
+// ==================================================
+
+function tampilkanTransaksi(transaksi) {
+
+    const tbody =
+        document.getElementById(
+            "daftarTransaksi"
+        );
+
+
+    tbody.innerHTML = "";
+
+
+    if (transaksi.length === 0) {
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="7"
+                    class="kosong"
+                >
+                    Belum ada transaksi.
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    transaksi.forEach((t, index) => {
+
+        const tr =
+            document.createElement("tr");
+
+
+        const tanggal =
+            new Date(
+                t.tanggal
+            ).toLocaleString(
+                "id-ID"
+            );
+
+
+        const kelas =
+            t.jenis === "Pendapatan"
+                ? "masuk"
+                : "keluar";
+
+
+        const tanda =
+            t.jenis === "Pendapatan"
+                ? "+"
+                : "-";
+
+
+        tr.innerHTML = `
+
+            <td>
+                ${index + 1}
+            </td>
+
+            <td>
+                ${tanggal}
+            </td>
+
+            <td class="${kelas}">
+                ${t.jenis}
+            </td>
+
+            <td>
+                ${t.kategori}
+            </td>
+
+            <td>
+                ${t.keterangan}
+            </td>
+
+            <td class="${kelas}">
+                ${tanda}${rupiah(t.jumlah)}
+            </td>
+
+            <td>
+
+                <button
+                    class="btn-hapus"
+                    onclick="hapusTransaksi(${t.id})"
+                >
+                    Hapus
+                </button>
+
+            </td>
+
+        `;
+
+
+        tbody.appendChild(tr);
+
+    });
+
+}
+
+
+// ==================================================
+// SIMPAN TRANSAKSI
+// ==================================================
+
+async function simpanTransaksi() {
+
+    const jenis =
+        document.getElementById(
+            "jenis"
+        ).value;
+
+
+    const kategori =
+        document.getElementById(
+            "kategori"
+        ).value;
+
+
+    const keterangan =
+        document.getElementById(
+            "keterangan"
+        ).value.trim();
+
+
+    const jumlah =
+        Number(
+            document.getElementById(
+                "jumlah"
+            ).value
+        );
+
+
+    if (!keterangan) {
+
+        alert(
+            "Keterangan wajib diisi."
+        );
+
+        return;
+
+    }
+
+
+    if (!jumlah || jumlah <= 0) {
+
+        alert(
+            "Jumlah harus lebih dari 0."
+        );
+
+        return;
+
+    }
+
+
+    const data = {
+
+        jenis:
+            jenis,
+
+        kategori:
+            kategori,
+
+        keterangan:
+            keterangan,
+
+        jumlah:
+            jumlah
+
+    };
+
+
+    try {
+
+        const response =
+            await fetch(
+                API + "/api/transaksi",
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify(data)
+
+                }
+            );
+
+
+        const hasil =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            alert(
+                hasil.error ||
+                "Gagal menyimpan transaksi."
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            "Transaksi berhasil disimpan."
+        );
+
+
+        document.getElementById(
+            "keterangan"
+        ).value = "";
+
+
+        document.getElementById(
+            "jumlah"
+        ).value = "";
+
+
+        loadTransaksi();
+
+
+    } catch (error) {
+
+        alert(
+            "Server tidak terhubung."
+        );
+
+        console.error(error);
+
+    }
+
+}
+
+
+// ==================================================
+// HAPUS TRANSAKSI
+// ==================================================
+
+async function hapusTransaksi(id) {
+
+    if (
+        !confirm(
+            "Yakin ingin menghapus transaksi ini?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                API +
+                "/api/transaksi/" +
+                id,
+                {
+                    method: "DELETE"
+                }
+            );
+
+
+        if (response.ok) {
+
+            loadTransaksi();
+
+        } else {
+
+            const hasil =
+                await response.json();
+
+            alert(
+                hasil.error ||
+                "Gagal menghapus transaksi."
+            );
+
+        }
+
+
+    } catch (error) {
+
+        alert(
+            "Server tidak terhubung."
+        );
+
+    }
+
+}
+
+
+// ==================================================
+// JALANKAN
+// ==================================================
+
+loadTransaksi();
+
+</script>
+
+</body>
+</html>

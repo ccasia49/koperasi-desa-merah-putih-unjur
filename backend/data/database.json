@@ -1,0 +1,59 @@
+{
+  "produk": [
+    {
+      "id": 1790944234722,
+      "nama": "Beras",
+      "kategori": "Sembako",
+      "harga": 15000,
+      "stok": 18,
+      "deskripsi": "BERAS KUALITAS TERBAIK KDMP"
+    }
+  ],
+  "anggota": [
+    {
+      "id": 1790941460234,
+      "nomor": "01",
+      "nama": "KEPALA DESA UNJUR",
+      "nik": "",
+      "alamat": "Desa Unjur",
+      "status": "Aktif"
+    }
+  ],
+  "pesanan": [
+    {
+      "id": 1790944276961,
+      "tanggal": "2026-10-02T12:31:16.961Z",
+      "namaPembeli": "KEPALA DESA UNJUR",
+      "anggotaId": 1790941460234,
+      "produkId": 1790944234722,
+      "namaProduk": "Beras",
+      "jumlah": 2,
+      "harga": 15000,
+      "total": 30000,
+      "status": "Selesai",
+      "stokDikurangi": true,
+      "transaksiId": 1790945950283
+    }
+  ],
+  "transaksi": [
+    {
+      "id": 1790945950283,
+      "tanggal": "2026-10-02T12:59:10.283Z",
+      "jenis": "Pendapatan",
+      "kategori": "Penjualan",
+      "keterangan": "Beras x 2",
+      "jumlah": 30000,
+      "pesananId": 1790944276961
+    }
+  ],
+  "berita": [
+    {
+      "id": 1790947121899,
+      "judul": "Koperasi Desa Merah Putih Unjur Terus Mengembangkan Unit Usaha",
+      "isi": "Koperasi Desa Merah Putih Unjur terus melakukan pengembangan unit usaha sebagai bagian dari upaya meningkatkan pelayanan kepada anggota dan masyarakat Desa Unjur.\n\nPengembangan unit usaha diarahkan pada kegiatan yang memiliki manfaat bagi masyarakat, termasuk penyediaan kebutuhan sehari-hari serta pengelolaan dan pemasaran hasil pertanian masyarakat.\n\nMelalui pengembangan usaha tersebut, Koperasi Desa Merah Putih Unjur diharapkan dapat menjadi wadah bersama bagi anggota dan masyarakat dalam mendukung kegiatan ekonomi di Desa Unjur.\n\nPengurus koperasi juga terus melakukan pembenahan administrasi, pengelolaan usaha, serta pelayanan agar kegiatan koperasi dapat berjalan secara tertib, transparan, dan berkelanjutan.\n\nKe depan, Koperasi Desa Merah Putih Unjur akan terus membuka peluang pengembangan usaha yang sesuai dengan kebutuhan masyarakat dan potensi Desa Unjur.\n",
+      "gambar": "",
+      "tanggal": "2026-10-02T13:18:41.899Z"
+    }
+  ],
+  "galeri": []
+}

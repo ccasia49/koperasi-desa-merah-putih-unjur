@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anggota - KDMP Unjur</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f5f7;
+            color: #222;
+        }
+
+        header {
+            background: #b40000;
+            color: white;
+            padding: 18px;
+        }
+
+        header h2 {
+            margin: 0;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.08);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 11px;
+            margin: 6px 0 12px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+        }
+
+        textarea {
+            min-height: 70px;
+            resize: vertical;
+        }
+
+        button {
+            border: none;
+            padding: 10px 15px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .simpan {
+            background: #b40000;
+            color: white;
+        }
+
+        .batal {
+            background: #777;
+            color: white;
+            display: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 11px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #f1f1f1;
+        }
+
+        .edit {
+            background: #e0a800;
+            color: white;
+        }
+
+        .hapus {
+            background: #c62828;
+            color: white;
+        }
+
+        .kembali {
+            display: inline-block;
+            margin-bottom: 15px;
+            text-decoration: none;
+            color: #b40000;
+            font-weight: bold;
+        }
+
+        .status-aktif {
+            color: green;
+            font-weight: bold;
+        }
+
+        @media(max-width:700px) {
+            table {
+                font-size: 13px;
+            }
+
+            th, td {
+                padding: 7px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>Anggota Koperasi</h2>
+</header>
+
+<div class="container">
+
+    <a href="index.html" class="kembali">← Kembali ke Dashboard</a>
+
+    <div class="card">
+        <h3 id="judulForm">Tambah Anggota</h3>
+
+        <input type="hidden" id="id">
+
+        <label>Nomor Anggota</label>
+        <input type="text" id="nomor" placeholder="Contoh: AGT-001">
+
+        <label>Nama Lengkap</label>
+        <input type="text" id="nama" placeholder="Nama anggota">
+
+        <label>NIK</label>
+        <input type="text" id="nik" placeholder="NIK anggota">
+
+        <label>Alamat</label>
+        <textarea id="alamat" placeholder="Alamat anggota"></textarea>
+
+        <label>Status</label>
+        <select id="status">
+            <option value="Aktif">Aktif</option>
+            <option value="Tidak Aktif">Tidak Aktif</option>
+            <option value="Sukarela">Sukarela</option>
+        </select>
+
+        <button class="simpan" onclick="simpanAnggota()">Simpan Anggota</button>
+        <button class="batal" id="btnBatal" onclick="resetForm()">Batal</button>
+    </div>
+
+    <div class="card">
+        <h3>Daftar Anggota</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nomor</th>
+                    <th>Nama</th>
+                    <th>NIK</th>
+                    <th>Alamat</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+
+            <tbody id="daftarAnggota">
+                <tr>
+                    <td colspan="7">Memuat data...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+
+const API = "http://localhost:3000/api/anggota";
+
+let dataAnggota = [];
+
+async function tampilkanAnggota() {
+
+    try {
+
+        const response = await fetch(API);
+
+        dataAnggota = await response.json();
+
+        const tbody = document.getElementById("daftarAnggota");
+
+        tbody.innerHTML = "";
+
+        if (dataAnggota.length === 0) {
+
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="7">Belum ada anggota.</td>
+                </tr>
+            `;
+
+            return;
+        }
+
+        dataAnggota.forEach((anggota, index) => {
+
+            tbody.innerHTML += `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${anggota.nomor}</td>
+                    <td>${anggota.nama}</td>
+                    <td>${anggota.nik}</td>
+                    <td>${anggota.alamat}</td>
+                    <td class="${anggota.status === "Aktif" ? "status-aktif" : ""}">
+                        ${anggota.status}
+                    </td>
+                    <td>
+                        <button class="edit" onclick="editAnggota(${anggota.id})">
+                            Edit
+                        </button>
+
+                        <button class="hapus" onclick="hapusAnggota(${anggota.id})">
+                            Hapus
+                        </button>
+                    </td>
+                </tr>
+            `;
+        });
+
+    } catch (error) {
+
+        document.getElementById("daftarAnggota").innerHTML = `
+            <tr>
+                <td colspan="7">
+                    Gagal terhubung ke server.
+                </td>
+            </tr>
+        `;
+    }
+}
+
+
+async function simpanAnggota() {
+
+    const id = document.getElementById("id").value;
+
+    const data = {
+        nomor: document.getElementById("nomor").value,
+        nama: document.getElementById("nama").value,
+        nik: document.getElementById("nik").value,
+        alamat: document.getElementById("alamat").value,
+        status: document.getElementById("status").value
+    };
+
+    if (!data.nama) {
+        alert("Nama anggota wajib diisi.");
+        return;
+    }
+
+    try {
+
+        let response;
+
+        if (id) {
+
+            response = await fetch(`${API}/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+        } else {
+
+            response = await fetch(API, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+        }
+
+        const hasil = await response.json();
+
+        if (!response.ok) {
+            alert(hasil.error || "Gagal menyimpan anggota.");
+            return;
+        }
+
+        alert(hasil.message);
+
+        resetForm();
+        tampilkanAnggota();
+
+    } catch (error) {
+
+        alert("Server tidak terhubung.");
+    }
+}
+
+
+function editAnggota(id) {
+
+    const anggota = dataAnggota.find(a => a.id === id);
+
+    if (!anggota) return;
+
+    document.getElementById("id").value = anggota.id;
+    document.getElementById("nomor").value = anggota.nomor;
+    document.getElementById("nama").value = anggota.nama;
+    document.getElementById("nik").value = anggota.nik;
+    document.getElementById("alamat").value = anggota.alamat;
+    document.getElementById("status").value = anggota.status;
+
+    document.getElementById("judulForm").innerText = "Edit Anggota";
+    document.getElementById("btnBatal").style.display = "inline-block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+async function hapusAnggota(id) {
+
+    if (!confirm("Yakin ingin menghapus anggota ini?")) {
+        return;
+    }
+
+    try {
+
+        const response = await fetch(`${API}/${id}`, {
+            method: "DELETE"
+        });
+
+        const hasil = await response.json();
+
+        alert(hasil.message || hasil.error);
+
+        tampilkanAnggota();
+
+    } catch (error) {
+
+        alert("Server tidak terhubung.");
+    }
+}
+
+
+function resetForm() {
+
+    document.getElementById("id").value = "";
+    document.getElementById("nomor").value = "";
+    document.getElementById("nama").value = "";
+    document.getElementById("nik").value = "";
+    document.getElementById("alamat").value = "";
+    document.getElementById("status").value = "Aktif";
+
+    document.getElementById("judulForm").innerText = "Tambah Anggota";
+    document.getElementById("btnBatal").style.display = "none";
+}
+
+
+tampilkanAnggota();
+
+</script>
+
+</body>
+</html>
