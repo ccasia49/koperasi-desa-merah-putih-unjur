@@ -3,99 +3,623 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>produk - KDMP Unjur</title>
+
+<title>Produk - Koperasi Desa Merah Putih Unjur</title>
+
+<meta name="description" content="Katalog produk Koperasi Desa Merah Putih Unjur, Samosir.">
+
 <link rel="stylesheet" href="css/style.css">
+
+<style>
+.product-tools{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:35px;
+}
+
+.product-search{
+    flex:1;
+    min-width:230px;
+    padding:14px 18px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:15px;
+    outline:none;
+}
+
+.product-search:focus{
+    border-color:#b00000;
+}
+
+.filter-btn{
+    padding:12px 17px;
+    border:1px solid #ddd;
+    background:#fff;
+    border-radius:9px;
+    cursor:pointer;
+    font-weight:700;
+    transition:.25s;
+}
+
+.filter-btn:hover,
+.filter-btn.active{
+    color:#fff;
+    background:#b00000;
+    border-color:#b00000;
+}
+
+.product-card{
+    display:flex;
+    flex-direction:column;
+}
+
+.product-image{
+    height:190px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:-30px -30px 22px;
+    background:linear-gradient(135deg,#fff3f3,#ffe0e0);
+    font-size:75px;
+}
+
+.product-card .product-info{
+    flex:1;
+}
+
+.product-category{
+    color:#b00000;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+.product-card h3{
+    margin:7px 0;
+}
+
+.product-card p{
+    min-height:auto;
+    margin-bottom:15px;
+}
+
+.product-action{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:15px;
+}
+
+.product-action a,
+.detail-btn{
+    display:inline-block;
+    padding:10px 14px;
+    border-radius:8px;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.order-btn{
+    color:#fff;
+    background:#b00000;
+}
+
+.order-btn:hover{
+    background:#850000;
+}
+
+.detail-btn{
+    color:#b00000;
+    background:#fff3f3;
+    border:0;
+}
+
+.no-product{
+    display:none;
+    padding:40px;
+    text-align:center;
+    color:#777;
+    grid-column:1/-1;
+}
+
+.product-note{
+    margin-top:35px;
+    padding:20px;
+    border-left:4px solid #b00000;
+    background:#fff7f7;
+    color:#666;
+    border-radius:8px;
+}
+
+@media(max-width:700px){
+    .product-image{
+        margin:-25px -25px 20px;
+    }
+
+    .product-tools{
+        flex-direction:column;
+    }
+
+    .filter-btn{
+        width:100%;
+    }
+}
+</style>
 </head>
 
 <body>
 
-<header>
-<div class="logo">
-<div class="logo-circle">KDMP</div>
-<div>
-<h2>KDMP UNJUR</h2>
-<small>Koperasi Desa Merah Putih Unjur</small>
+<!-- ANIMASI ULOS -->
+<div class="ulos-animation" aria-hidden="true">
+    <div class="ulos-pattern"></div>
+    <div class="ulos-pattern"></div>
+    <div class="ulos-pattern"></div>
 </div>
+
+<!-- JAM DIGITAL -->
+<div class="digital-clock" id="digitalClock">
+    <span class="clock-icon">◷</span>
+    <span id="clockTime">00:00:00</span>
+    <small id="clockDate">Memuat tanggal...</small>
+</div>
+
+<header>
+
+<div class="logo">
+    <div class="logo-circle">KDMP</div>
+
+    <div>
+        <h2>KDMP UNJUR</h2>
+        <small>Koperasi Desa Merah Putih Unjur</small>
+    </div>
 </div>
 
 <nav>
-<a href="index.html">Beranda</a>
-<a href="profil.html">Profil</a>
-<a href="unit-usaha.html">Unit Usaha</a>
-<a href="produk.html">Produk</a>
-<a href="kios-angkat.html">Kios Angkat</a>
-<a href="pertanian.html">Pertanian</a>
-<a href="anggota.html">Anggota</a>
-<a href="berita.html">Berita</a>
-<a href="galeri.html">Galeri</a>
-<a href="kontak.html">Kontak</a>
+    <a href="index.html">Beranda</a>
+    <a href="profil.html">Profil</a>
+    <a href="unit-usaha.html">Unit Usaha</a>
+    <a href="produk.html">Produk</a>
+    <a href="kios-angkat.html">Kios Angkat</a>
+    <a href="pertanian.html">Pertanian</a>
+    <a href="anggota.html">Anggota</a>
+    <a href="berita.html">Berita</a>
+    <a href="galeri.html">Galeri</a>
+    <a href="kontak.html">Kontak</a>
 </nav>
+
 </header>
 
-<section class="hero" style="min-height:350px">
+
+<section class="hero" style="min-height:420px">
+
 <div class="hero-content">
-<span>KDMP UNJUR</span>
-<h1>produk</h1>
+
+<span>PRODUK KDMP UNJUR</span>
+
+<h1>Belanja Produk Desa</h1>
+
 <p>
-Informasi dan layanan Koperasi Desa Merah Putih Unjur.
+Temukan berbagai produk kebutuhan masyarakat dan produk lokal
+yang dikembangkan bersama Koperasi Desa Merah Putih Unjur.
 </p>
+
 </div>
+
 </section>
+
 
 <section class="section">
 
 <div class="section-title">
-<span>INFORMASI</span>
-<h2>produk KDMP Unjur</h2>
+
+<span>KATALOG PRODUK</span>
+
+<h2>Produk KDMP Unjur</h2>
+
 <p>
-Halaman ini akan dikembangkan menjadi modul lengkap sesuai kebutuhan koperasi.
+Pilih produk yang ingin Anda lihat atau pesan.
 </p>
+
 </div>
 
-<div class="cards">
 
-<div class="card">
-<div class="icon">🤝</div>
-<h3>Usaha Bersama</h3>
+<div class="product-tools">
+
+<input
+    type="search"
+    id="productSearch"
+    class="product-search"
+    placeholder="🔎 Cari produk..."
+>
+
+<button class="filter-btn active" data-category="semua">
+Semua
+</button>
+
+<button class="filter-btn" data-category="sembako">
+Sembako
+</button>
+
+<button class="filter-btn" data-category="lokal">
+Produk Lokal
+</button>
+
+</div>
+
+
+<div class="cards" id="productList">
+
+
+<!-- BERAS -->
+
+<div class="card product-card"
+     data-category="sembako"
+     data-name="beras">
+
+    <div class="product-image">
+        🍚
+    </div>
+
+    <div class="product-info">
+
+        <span class="product-category">
+            SEMBAKO
+        </span>
+
+        <h3>Beras</h3>
+
+        <p>
+            Produk kebutuhan pokok untuk memenuhi kebutuhan
+            rumah tangga masyarakat Desa Unjur.
+        </p>
+
+    </div>
+
+    <div class="product-action">
+
+        <button
+            class="detail-btn"
+            onclick="showDetail('Beras','Produk kebutuhan pokok masyarakat Desa Unjur.')">
+            Detail
+        </button>
+
+        <a
+            class="order-btn"
+            href="#"
+            onclick="orderProduct('Beras')">
+            Pesan
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- MINYAK -->
+
+<div class="card product-card"
+     data-category="sembako"
+     data-name="minyak goreng">
+
+    <div class="product-image">
+        🛢️
+    </div>
+
+    <div class="product-info">
+
+        <span class="product-category">
+            SEMBAKO
+        </span>
+
+        <h3>Minyak Goreng</h3>
+
+        <p>
+            Minyak goreng untuk kebutuhan rumah tangga
+            dan kegiatan usaha masyarakat.
+        </p>
+
+    </div>
+
+    <div class="product-action">
+
+        <button
+            class="detail-btn"
+            onclick="showDetail('Minyak Goreng','Minyak goreng untuk kebutuhan rumah tangga dan usaha.')">
+            Detail
+        </button>
+
+        <a
+            class="order-btn"
+            href="#"
+            onclick="orderProduct('Minyak Goreng')">
+            Pesan
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- GULA -->
+
+<div class="card product-card"
+     data-category="sembako"
+     data-name="gula">
+
+    <div class="product-image">
+        🧂
+    </div>
+
+    <div class="product-info">
+
+        <span class="product-category">
+            SEMBAKO
+        </span>
+
+        <h3>Gula</h3>
+
+        <p>
+            Produk kebutuhan pokok yang disediakan
+            untuk masyarakat dan anggota koperasi.
+        </p>
+
+    </div>
+
+    <div class="product-action">
+
+        <button
+            class="detail-btn"
+            onclick="showDetail('Gula','Produk kebutuhan pokok untuk masyarakat dan anggota koperasi.')">
+            Detail
+        </button>
+
+        <a
+            class="order-btn"
+            href="#"
+            onclick="orderProduct('Gula')">
+            Pesan
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- BILIH PORA -->
+
+<div class="card product-card"
+     data-category="lokal"
+     data-name="bilih pora crispy toba ikan">
+
+    <div class="product-image">
+        🐟
+    </div>
+
+    <div class="product-info">
+
+        <span class="product-category">
+            PRODUK LOKAL
+        </span>
+
+        <h3>Bilih-Pora Crispy Toba</h3>
+
+        <p>
+            Produk olahan ikan lokal yang dikembangkan
+            sebagai salah satu potensi produk unggulan desa.
+        </p>
+
+    </div>
+
+    <div class="product-action">
+
+        <button
+            class="detail-btn"
+            onclick="showDetail('Bilih-Pora Crispy Toba','Produk olahan ikan lokal yang dikembangkan sebagai potensi produk unggulan desa.')">
+            Detail
+        </button>
+
+        <a
+            class="order-btn"
+            href="#"
+            onclick="orderProduct('Bilih-Pora Crispy Toba')">
+            Pesan
+        </a>
+
+    </div>
+
+</div>
+
+
+<div class="no-product" id="noProduct">
+    Produk yang dicari belum ditemukan.
+</div>
+
+
+</div>
+
+
+<div class="product-note">
+
+<strong>Informasi Pemesanan</strong>
+
 <p>
-Mengembangkan potensi desa melalui kerja sama koperasi dan anggota.
+Untuk harga, ukuran, ketersediaan stok, dan pemesanan,
+silakan hubungi KDMP Unjur. Informasi akan diperbarui
+sesuai ketersediaan produk.
 </p>
-</div>
-
-<div class="card">
-<div class="icon">🏘️</div>
-<h3>Untuk Masyarakat</h3>
-<p>
-Memberikan pelayanan dan manfaat bagi masyarakat Desa Unjur.
-</p>
-</div>
-
-<div class="card">
-<div class="icon">📈</div>
-<h3>Pengembangan</h3>
-<p>
-Usaha dikembangkan secara bertahap sesuai potensi dan kebutuhan desa.
-</p>
-</div>
-
-<div class="card">
-<div class="icon">💼</div>
-<h3>Anggota</h3>
-<p>
-Anggota menjadi bagian penting dalam kegiatan usaha koperasi.
-</p>
-</div>
 
 </div>
+
 </section>
 
+
 <footer>
+
 <div>
-<h3>KDMP UNJUR</h3>
-<p>Koperasi Desa Merah Putih Unjur</p>
+    <h3>KDMP UNJUR</h3>
+    <p>Koperasi Desa Merah Putih Unjur</p>
+    <p>Membangun ekonomi desa bersama.</p>
 </div>
-<p>© 2026 KDMP Unjur</p>
+
+<div>
+    <h3>Menu</h3>
+    <p><a href="index.html">Beranda</a></p>
+    <p><a href="profil.html">Profil</a></p>
+    <p><a href="produk.html">Produk</a></p>
+</div>
+
+<div>
+    <h3>Unit Usaha</h3>
+    <p><a href="unit-usaha.html">Unit Usaha</a></p>
+    <p><a href="pertanian.html">Pertanian</a></p>
+    <p><a href="kios-angkat.html">Kios Angkat</a></p>
+</div>
+
+<div>
+    <h3>Informasi</h3>
+    <p><a href="berita.html">Berita</a></p>
+    <p><a href="galeri.html">Galeri</a></p>
+    <p><a href="kontak.html">Kontak</a></p>
+</div>
+
 </footer>
+
+
+<script>
+
+function updateClock(){
+
+    const now = new Date();
+
+    const time = now.toLocaleTimeString('id-ID',{
+        hour:'2-digit',
+        minute:'2-digit',
+        second:'2-digit',
+        hour12:false
+    });
+
+    const date = now.toLocaleDateString('id-ID',{
+        weekday:'long',
+        day:'numeric',
+        month:'long',
+        year:'numeric'
+    });
+
+    document.getElementById('clockTime').textContent = time;
+    document.getElementById('clockDate').textContent = date;
+}
+
+updateClock();
+
+setInterval(updateClock,1000);
+
+
+/* =========================
+   PENCARIAN PRODUK
+========================= */
+
+const search = document.getElementById('productSearch');
+const cards = document.querySelectorAll('.product-card');
+const filters = document.querySelectorAll('.filter-btn');
+const noProduct = document.getElementById('noProduct');
+
+let activeCategory = 'semua';
+
+function filterProducts(){
+
+    const keyword = search.value.toLowerCase().trim();
+
+    let visible = 0;
+
+    cards.forEach(card => {
+
+        const name = card.dataset.name;
+        const category = card.dataset.category;
+
+        const matchSearch = name.includes(keyword);
+
+        const matchCategory =
+            activeCategory === 'semua' ||
+            category === activeCategory;
+
+        if(matchSearch && matchCategory){
+
+            card.style.display = '';
+
+            visible++;
+
+        }else{
+
+            card.style.display = 'none';
+
+        }
+
+    });
+
+    noProduct.style.display =
+        visible === 0 ? 'block' : 'none';
+}
+
+search.addEventListener('input',filterProducts);
+
+
+filters.forEach(button => {
+
+    button.addEventListener('click',function(){
+
+        filters.forEach(btn =>
+            btn.classList.remove('active')
+        );
+
+        this.classList.add('active');
+
+        activeCategory =
+            this.dataset.category;
+
+        filterProducts();
+
+    });
+
+});
+
+
+/* =========================
+   DETAIL PRODUK
+========================= */
+
+function showDetail(name,description){
+
+    alert(
+        name +
+        "\\n\\n" +
+        description +
+        "\\n\\n" +
+        "Untuk harga dan ketersediaan, silakan hubungi KDMP Unjur."
+    );
+
+}
+
+
+/* =========================
+   PESAN PRODUK
+========================= */
+
+function orderProduct(product){
+
+    alert(
+        "Produk: " +
+        product +
+        "\\n\\n" +
+        "Nomor WhatsApp KDMP Unjur belum diatur."
+    );
+
+    return false;
+}
+
+</script>
 
 </body>
 </html>
