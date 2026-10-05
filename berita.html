@@ -1,318 +1,547 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Berita - Koperasi Desa Merah Putih Unjur</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<title>Berita - Koperasi Desa Merah Putih Unjur</title>
+<meta name="description" content="Berita dan informasi kegiatan Koperasi Desa Merah Putih Unjur, Samosir.">
+<meta name="robots" content="index, follow">
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            color: #222;
-        }
+<link rel="stylesheet" href="css/style.css">
 
-        header {
-            background: linear-gradient(135deg, #b40000, #e00000);
-            color: white;
-            padding: 25px 20px;
-        }
+<style>
+.berita-hero {
+    min-height: 360px;
+}
 
-        .header-inner {
-            max-width: 1100px;
-            margin: auto;
-        }
+.berita-tools {
+    max-width: 1050px;
+    margin: 0 auto 35px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
 
-        header h1 {
-            margin: 0 0 8px;
-            font-size: 28px;
-        }
+.search-box {
+    flex: 1;
+    min-width: 230px;
+    padding: 13px 16px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 15px;
+    outline: none;
+}
 
-        header p {
-            margin: 0;
-            opacity: 0.95;
-        }
+.search-box:focus {
+    border-color: #a00000;
+}
 
-        nav {
-            background: white;
-            border-bottom: 1px solid #ddd;
-        }
+.filter-btn {
+    border: 0;
+    padding: 12px 17px;
+    border-radius: 9px;
+    background: #eee;
+    cursor: pointer;
+    font-weight: 600;
+}
 
-        .nav-inner {
-            max-width: 1100px;
-            margin: auto;
-            display: flex;
-            flex-wrap: wrap;
-        }
+.filter-btn.active,
+.filter-btn:hover {
+    background: #a00000;
+    color: white;
+}
 
-        nav a {
-            color: #333;
-            text-decoration: none;
-            padding: 14px 16px;
-            display: block;
-        }
+.berita-grid {
+    max-width: 1050px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 24px;
+}
 
-        nav a:hover {
-            background: #fbeaea;
-            color: #b40000;
-        }
+.berita-card {
+    background: white;
+    border-radius: 17px;
+    overflow: hidden;
+    box-shadow: 0 7px 24px rgba(0,0,0,.08);
+    transition: .3s;
+}
 
-        main {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 0 15px;
-        }
+.berita-card:hover {
+    transform: translateY(-6px);
+}
 
-        .judul-halaman {
-            margin-bottom: 20px;
-        }
+.berita-cover {
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 52px;
+    background: linear-gradient(135deg,#a00000,#e00000);
+}
 
-        .judul-halaman h2 {
-            margin: 0 0 5px;
-            color: #b40000;
-        }
+.berita-content {
+    padding: 22px;
+}
 
-        .judul-halaman p {
-            color: #666;
-            margin: 0;
-        }
+.berita-category {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background: #f6e5e5;
+    color: #a00000;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
 
-        .berita-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
+.berita-date {
+    color: #888;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
 
-        .berita-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-        }
+.berita-content h3 {
+    margin: 0 0 10px;
+    font-size: 19px;
+}
 
-        .berita-gambar {
-            width: 100%;
-            height: 190px;
-            object-fit: cover;
-            background: #eee;
-        }
+.berita-content p {
+    color: #666;
+    line-height: 1.65;
+}
 
-        .berita-tanpa-gambar {
-            height: 120px;
-            background: linear-gradient(135deg, #b40000, #e00000);
-        }
+.read-btn {
+    border: 0;
+    background: none;
+    color: #a00000;
+    padding: 0;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-        .berita-content {
-            padding: 18px;
-        }
+.empty {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 45px;
+    background: white;
+    border-radius: 15px;
+    color: #777;
+}
 
-        .berita-content h3 {
-            margin: 0 0 8px;
-            font-size: 20px;
-            color: #222;
-        }
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    inset: 0;
+    background: rgba(0,0,0,.65);
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+}
 
-        .tanggal {
-            font-size: 13px;
-            color: #888;
-            margin-bottom: 12px;
-        }
+.modal.show {
+    display: flex;
+}
 
-        .isi {
-            line-height: 1.6;
-            color: #555;
-            white-space: pre-line;
-        }
+.modal-box {
+    width: min(700px,100%);
+    max-height: 85vh;
+    overflow-y: auto;
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+    position: relative;
+}
 
-        .kosong,
-        .error {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            text-align: center;
-        }
+.modal-box h2 {
+    margin-top: 0;
+}
 
-        .error {
-            color: #b40000;
-        }
+.modal-close {
+    position: absolute;
+    right: 18px;
+    top: 12px;
+    border: 0;
+    background: none;
+    font-size: 30px;
+    cursor: pointer;
+}
 
-        footer {
-            margin-top: 50px;
-            background: #a90000;
-            color: white;
-            text-align: center;
-            padding: 25px 15px;
-        }
+.modal-text {
+    line-height: 1.8;
+    color: #444;
+}
 
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 23px;
-            }
+.news-info {
+    max-width: 900px;
+    margin: 55px auto 0;
+    padding: 30px;
+    border-radius: 18px;
+    background: linear-gradient(135deg,#fff,#f8eeee);
+    text-align: center;
+}
 
-            nav a {
-                padding: 10px 11px;
-                font-size: 14px;
-            }
-        }
-    </style>
+.news-info p {
+    line-height: 1.7;
+}
+
+@media(max-width:850px) {
+    .berita-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+@media(max-width:600px) {
+    .berita-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .berita-tools {
+        flex-direction: column;
+    }
+
+    .filter-btn {
+        width: 100%;
+    }
+}
+</style>
 </head>
 
 <body>
 
-<header>
-    <div class="header-inner">
-        <h1>Koperasi Desa Merah Putih Unjur</h1>
-        <p>Informasi dan berita terbaru koperasi</p>
-    </div>
-</header>
+<!-- ANIMASI ULOS -->
+<div class="ulos-animation" aria-hidden="true">
+    <div class="ulos-pattern"></div>
+    <div class="ulos-pattern"></div>
+    <div class="ulos-pattern"></div>
+</div>
 
-<nav>
-    <div class="nav-inner">
+<!-- JAM DIGITAL -->
+<div class="digital-clock" id="digitalClock">
+    <span class="clock-icon">◷</span>
+    <span id="clockTime">00:00:00</span>
+    <small id="clockDate">Senin, 1 Januari 2026</small>
+</div>
+
+<header>
+    <div class="logo">
+        <div class="logo-circle">KDMP</div>
+        <div>
+            <h2>KDMP UNJUR</h2>
+            <small>Koperasi Desa Merah Putih Unjur</small>
+        </div>
+    </div>
+
+    <nav>
         <a href="index.html">Beranda</a>
         <a href="profil.html">Profil</a>
         <a href="unit-usaha.html">Unit Usaha</a>
         <a href="produk.html">Produk</a>
+        <a href="kios-angkat.html">Kios Angkat</a>
+        <a href="pertanian.html">Pertanian</a>
         <a href="anggota.html">Anggota</a>
         <a href="berita.html">Berita</a>
         <a href="galeri.html">Galeri</a>
         <a href="kontak.html">Kontak</a>
+    </nav>
+</header>
+
+<section class="hero berita-hero">
+    <div class="hero-content">
+        <span>INFORMASI • KDMP UNJUR</span>
+        <h1>Berita & Kegiatan</h1>
+        <p>
+            Informasi mengenai kegiatan, perkembangan usaha,
+            dan berbagai aktivitas Koperasi Desa Merah Putih Unjur.
+        </p>
     </div>
-</nav>
+</section>
 
-<main>
+<section class="section">
 
-    <div class="judul-halaman">
-        <h2>Berita Koperasi</h2>
-        <p>Informasi terbaru Koperasi Desa Merah Putih Unjur</p>
+    <div class="section-title">
+        <span>BERITA TERBARU</span>
+        <h2>Kabar KDMP Unjur</h2>
+        <p>
+            Temukan informasi koperasi berdasarkan kategori kegiatan.
+        </p>
     </div>
 
-    <div id="beritaList" class="berita-list">
-        <div class="kosong">
-            Memuat berita...
-        </div>
+    <div class="berita-tools">
+
+        <input
+            type="search"
+            id="searchBerita"
+            class="search-box"
+            placeholder="Cari berita..."
+            oninput="filterBerita()"
+        >
+
+        <button class="filter-btn active"
+                data-category="Semua"
+                onclick="setCategory('Semua',this)">
+            Semua
+        </button>
+
+        <button class="filter-btn"
+                data-category="Kegiatan"
+                onclick="setCategory('Kegiatan',this)">
+            Kegiatan
+        </button>
+
+        <button class="filter-btn"
+                data-category="Koperasi"
+                onclick="setCategory('Koperasi',this)">
+            Koperasi
+        </button>
+
+        <button class="filter-btn"
+                data-category="Usaha"
+                onclick="setCategory('Usaha',this)">
+            Usaha
+        </button>
+
     </div>
 
-</main>
+    <div id="beritaList" class="berita-grid"></div>
+
+    <div class="news-info">
+        <h2>Informasi KDMP Unjur</h2>
+        <p>
+            Halaman berita ini menjadi ruang informasi untuk
+            perkembangan koperasi, kegiatan anggota, pengembangan
+            unit usaha, serta potensi ekonomi Desa Unjur.
+        </p>
+    </div>
+
+</section>
+
+<!-- MODAL DETAIL -->
+<div id="newsModal" class="modal" onclick="closeModal(event)">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeNews()">×</button>
+
+        <div id="modalCategory" class="berita-category"></div>
+        <h2 id="modalTitle"></h2>
+        <div id="modalDate" class="berita-date"></div>
+        <div id="modalText" class="modal-text"></div>
+    </div>
+</div>
 
 <footer>
-    <div>Koperasi Desa Merah Putih Unjur</div>
-    <div>Desa Unjur, Kabupaten Samosir</div>
+    <div>
+        <h3>KDMP UNJUR</h3>
+        <p>Koperasi Desa Merah Putih Unjur</p>
+    </div>
+
+    <p>© 2026 KDMP Unjur</p>
 </footer>
 
 <script>
-    const API = "http://localhost:3000/api";
+const beritaData = [
+    {
+        id: 1,
+        kategori: "Koperasi",
+        tanggal: "10 Juni 2025",
+        judul: "Koperasi Desa Merah Putih Unjur Resmi Berdiri",
+        ringkas: "Koperasi Desa Merah Putih Unjur resmi berdiri dengan legalitas koperasi pada tahun 2025.",
+        isi: "Koperasi Desa Merah Putih Unjur merupakan wadah ekonomi masyarakat desa yang dikembangkan untuk memperkuat kerja sama anggota dan mengembangkan potensi ekonomi Desa Unjur."
+    },
+    {
+        id: 2,
+        kategori: "Kegiatan",
+        tanggal: "8 Mei 2026",
+        judul: "RAT Tahun Buku 2025 KDMP Unjur",
+        ringkas: "Rapat Anggota Tahunan Tahun Buku 2025 dilaksanakan di Balai Desa Unjur.",
+        isi: "Rapat Anggota Tahunan Tahun Buku 2025 dilaksanakan pada 8 Mei 2026 di Balai Desa Unjur. Kegiatan ini menjadi bagian penting dalam evaluasi dan pengembangan koperasi."
+    },
+    {
+        id: 3,
+        kategori: "Usaha",
+        tanggal: "9 Mei 2026",
+        judul: "Pengembangan Unit Usaha KDMP Unjur",
+        ringkas: "Pengembangan unit usaha menjadi bagian dari langkah lanjutan KDMP Unjur.",
+        isi: "Pengembangan unit usaha KDMP Unjur diarahkan untuk memanfaatkan potensi desa, melibatkan anggota, dan memberikan manfaat ekonomi secara bertahap."
+    },
+    {
+        id: 4,
+        kategori: "Kegiatan",
+        tanggal: "19 Mei 2026",
+        judul: "Pelayanan SPT KPP",
+        ringkas: "Kegiatan pelayanan SPT KPP dilaksanakan pada 19–20 Mei 2026.",
+        isi: "Kegiatan pelayanan SPT KPP dilaksanakan di Dinas Koperasi UMKM & Tenaga Kerja Kabupaten Samosir pada 19–20 Mei 2026 dengan dokumen koperasi yang diperlukan."
+    },
+    {
+        id: 5,
+        kategori: "Usaha",
+        tanggal: "2026",
+        judul: "Pengembangan Produk Lokal Desa",
+        ringkas: "Produk lokal menjadi salah satu potensi yang dapat dikembangkan melalui koperasi.",
+        isi: "KDMP Unjur membuka ruang pengembangan produk lokal, termasuk produk olahan masyarakat, agar memiliki nilai tambah dan peluang pemasaran yang lebih luas."
+    },
+    {
+        id: 6,
+        kategori: "Usaha",
+        tanggal: "2026",
+        judul: "Potensi Hasil Pertanian Desa",
+        ringkas: "Hasil pertanian menjadi salah satu bidang potensi usaha koperasi.",
+        isi: "Pengembangan hasil pertanian diarahkan untuk memperkuat hubungan antara produksi masyarakat, koperasi, dan pasar sehingga potensi ekonomi desa dapat dikembangkan secara bertahap."
+    }
+];
 
-    function formatTanggal(tanggal) {
-        if (!tanggal) return "";
+let activeCategory = "Semua";
 
-        return new Date(tanggal).toLocaleDateString("id-ID", {
-            day: "2-digit",
-            month: "long",
-            year: "numeric"
-        });
+function renderBerita(data) {
+    const container = document.getElementById("beritaList");
+
+    if (!data.length) {
+        container.innerHTML = `
+            <div class="empty">
+                <h3>Berita tidak ditemukan</h3>
+                <p>Coba gunakan kata pencarian atau kategori lain.</p>
+            </div>
+        `;
+        return;
     }
 
-    function escapeHTML(text) {
-        if (!text) return "";
+    container.innerHTML = data.map(item => `
+        <article class="berita-card">
+            <div class="berita-cover">
+                ${getIcon(item.kategori)}
+            </div>
 
-        return String(text)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-    }
+            <div class="berita-content">
+                <span class="berita-category">
+                    ${item.kategori}
+                </span>
 
-    async function loadBerita() {
-        const container = document.getElementById("beritaList");
-
-        try {
-            const response = await fetch(API + "/berita");
-
-            if (!response.ok) {
-                throw new Error("Gagal mengambil berita");
-            }
-
-            const berita = await response.json();
-
-            if (!berita || berita.length === 0) {
-                container.innerHTML = `
-                    <div class="kosong">
-                        Belum ada berita.
-                    </div>
-                `;
-                return;
-            }
-
-            berita.sort((a, b) => {
-                return new Date(b.tanggal) - new Date(a.tanggal);
-            });
-
-            container.innerHTML = berita.map(item => {
-
-                let gambar = "";
-
-                if (item.gambar) {
-                    gambar = `
-                        <img
-                            class="berita-gambar"
-                            src="${escapeHTML(item.gambar)}"
-                            alt="${escapeHTML(item.judul)}"
-                            onerror="this.style.display='none'"
-                        >
-                    `;
-                } else {
-                    gambar = `
-                        <div class="berita-tanpa-gambar"></div>
-                    `;
-                }
-
-                return `
-                    <article class="berita-card">
-
-                        ${gambar}
-
-                        <div class="berita-content">
-
-                            <h3>
-                                ${escapeHTML(item.judul)}
-                            </h3>
-
-                            <div class="tanggal">
-                                ${formatTanggal(item.tanggal)}
-                            </div>
-
-                            <div class="isi">
-                                ${escapeHTML(item.isi)}
-                            </div>
-
-                        </div>
-
-                    </article>
-                `;
-
-            }).join("");
-
-        } catch (error) {
-
-            console.error(error);
-
-            container.innerHTML = `
-                <div class="error">
-                    Tidak dapat terhubung ke server berita.
-                    <br><br>
-                    Pastikan backend KDMP Unjur sedang berjalan.
+                <div class="berita-date">
+                    ${item.tanggal}
                 </div>
-            `;
-        }
-    }
 
-    loadBerita();
+                <h3>${item.judul}</h3>
+
+                <p>${item.ringkas}</p>
+
+                <button class="read-btn"
+                    onclick="openNews(${item.id})">
+                    Baca Selengkapnya →
+                </button>
+            </div>
+        </article>
+    `).join("");
+}
+
+function getIcon(category) {
+    if (category === "Kegiatan") return "📅";
+    if (category === "Usaha") return "📈";
+    return "🤝";
+}
+
+function filterBerita() {
+    const keyword =
+        document.getElementById("searchBerita").value
+        .toLowerCase()
+        .trim();
+
+    const filtered = beritaData.filter(item => {
+
+        const matchCategory =
+            activeCategory === "Semua" ||
+            item.kategori === activeCategory;
+
+        const matchSearch =
+            !keyword ||
+            item.judul.toLowerCase().includes(keyword) ||
+            item.ringkas.toLowerCase().includes(keyword) ||
+            item.isi.toLowerCase().includes(keyword);
+
+        return matchCategory && matchSearch;
+    });
+
+    renderBerita(filtered);
+}
+
+function setCategory(category, button) {
+    activeCategory = category;
+
+    document.querySelectorAll(".filter-btn")
+        .forEach(btn => btn.classList.remove("active"));
+
+    button.classList.add("active");
+
+    filterBerita();
+}
+
+function openNews(id) {
+    const item = beritaData.find(news => news.id === id);
+
+    if (!item) return;
+
+    document.getElementById("modalCategory").textContent =
+        item.kategori;
+
+    document.getElementById("modalTitle").textContent =
+        item.judul;
+
+    document.getElementById("modalDate").textContent =
+        item.tanggal;
+
+    document.getElementById("modalText").textContent =
+        item.isi;
+
+    document.getElementById("newsModal")
+        .classList.add("show");
+
+    document.body.style.overflow = "hidden";
+}
+
+function closeNews() {
+    document.getElementById("newsModal")
+        .classList.remove("show");
+
+    document.body.style.overflow = "";
+}
+
+function closeModal(event) {
+    if (event.target.id === "newsModal") {
+        closeNews();
+    }
+}
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        closeNews();
+    }
+});
+
+function updateClock() {
+    const now = new Date();
+
+    const time = now.toLocaleTimeString("id-ID", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false
+    });
+
+    const date = now.toLocaleDateString("id-ID", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    });
+
+    document.getElementById("clockTime").textContent = time;
+    document.getElementById("clockDate").textContent = date;
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+
+renderBerita(beritaData);
 </script>
 
 </body>
