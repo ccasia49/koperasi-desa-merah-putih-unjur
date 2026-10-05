@@ -3,22 +3,258 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>profil - KDMP Unjur</title>
+
+<title>Profil - Koperasi Desa Merah Putih Unjur</title>
+
+<meta name="description" content="Profil Koperasi Desa Merah Putih Unjur, Samosir. Informasi legalitas, pengurus, visi, misi, dan keanggotaan.">
+
 <link rel="stylesheet" href="css/style.css">
+
+<style>
+
+.profile-intro{
+    display:grid;
+    grid-template-columns:1.3fr .7fr;
+    gap:30px;
+    align-items:stretch;
+}
+
+.profile-box{
+    padding:30px;
+    background:#fff;
+    border:1px solid #eee;
+    border-radius:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,.05);
+}
+
+.profile-box h3{
+    margin-bottom:12px;
+    color:#a00000;
+}
+
+.profile-box p{
+    color:#666;
+}
+
+.legal-list{
+    list-style:none;
+    padding:0;
+}
+
+.legal-list li{
+    padding:12px 0;
+    border-bottom:1px solid #eee;
+    font-size:14px;
+}
+
+.legal-list li:last-child{
+    border-bottom:0;
+}
+
+.legal-list strong{
+    display:block;
+    color:#333;
+    margin-bottom:3px;
+}
+
+.legal-list span{
+    color:#777;
+}
+
+.profile-stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-top:30px;
+}
+
+.profile-stat{
+    padding:25px 15px;
+    text-align:center;
+    background:#fff;
+    border:1px solid #eee;
+    border-radius:15px;
+    box-shadow:0 8px 25px rgba(0,0,0,.05);
+}
+
+.profile-stat strong{
+    display:block;
+    color:#b00000;
+    font-size:30px;
+}
+
+.profile-stat span{
+    color:#777;
+    font-size:12px;
+}
+
+.management{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.person{
+    padding:24px 18px;
+    text-align:center;
+    background:#fff;
+    border:1px solid #eee;
+    border-radius:16px;
+    transition:.3s;
+}
+
+.person:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 30px rgba(100,0,0,.08);
+}
+
+.person-icon{
+    width:60px;
+    height:60px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 15px;
+    border-radius:50%;
+    color:#fff;
+    background:linear-gradient(135deg,#850000,#cf0000);
+    font-size:25px;
+}
+
+.person h3{
+    margin-bottom:5px;
+    font-size:17px;
+}
+
+.person span{
+    color:#b00000;
+    font-size:12px;
+    font-weight:800;
+}
+
+.info-columns{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+}
+
+.info-box{
+    padding:30px;
+    background:#fff;
+    border-radius:17px;
+    border:1px solid #eee;
+    box-shadow:0 8px 25px rgba(0,0,0,.05);
+}
+
+.info-box h3{
+    margin-bottom:12px;
+    color:#a00000;
+}
+
+.info-box p{
+    color:#666;
+}
+
+.info-box ul{
+    padding-left:20px;
+    color:#666;
+}
+
+.detail-btn{
+    margin-top:18px;
+    padding:10px 17px;
+    border:0;
+    border-radius:8px;
+    color:#fff;
+    background:#b00000;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.detail-content{
+    display:none;
+    margin-top:15px;
+    padding:15px;
+    background:#fff7f7;
+    border-left:3px solid #b00000;
+    color:#666;
+}
+
+.detail-content.show{
+    display:block;
+}
+
+@media(max-width:900px){
+
+    .profile-intro{
+        grid-template-columns:1fr;
+    }
+
+    .management{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .profile-stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:600px){
+
+    .management{
+        grid-template-columns:1fr;
+    }
+
+    .profile-stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .info-columns{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
 </head>
 
 <body>
 
+<!-- ANIMASI ULOS -->
+
+<div class="ulos-animation" aria-hidden="true">
+    <div class="ulos-pattern"></div>
+    <div class="ulos-pattern"></div>
+    <div class="ulos-pattern"></div>
+</div>
+
+
+<!-- JAM DIGITAL -->
+
+<div class="digital-clock" id="digitalClock">
+    <span class="clock-icon">◷</span>
+    <span id="clockTime">00:00:00</span>
+    <small id="clockDate">Memuat tanggal...</small>
+</div>
+
+
 <header>
+
 <div class="logo">
+
 <div class="logo-circle">KDMP</div>
+
 <div>
 <h2>KDMP UNJUR</h2>
 <small>Koperasi Desa Merah Putih Unjur</small>
 </div>
+
 </div>
 
+
 <nav>
+
 <a href="index.html">Beranda</a>
 <a href="profil.html">Profil</a>
 <a href="unit-usaha.html">Unit Usaha</a>
@@ -29,73 +265,489 @@
 <a href="berita.html">Berita</a>
 <a href="galeri.html">Galeri</a>
 <a href="kontak.html">Kontak</a>
+
 </nav>
+
 </header>
 
-<section class="hero" style="min-height:350px">
+
+<!-- HERO -->
+
+<section class="hero" style="min-height:430px">
+
 <div class="hero-content">
-<span>KDMP UNJUR</span>
-<h1>profil</h1>
+
+<span>PROFIL KDMP UNJUR</span>
+
+<h1>Tentang Koperasi Desa Merah Putih Unjur</h1>
+
 <p>
-Informasi dan layanan Koperasi Desa Merah Putih Unjur.
+Koperasi Desa Merah Putih Unjur hadir sebagai wadah ekonomi
+bersama untuk mengembangkan potensi desa, memperkuat usaha
+anggota, dan memberikan manfaat bagi masyarakat.
 </p>
+
 </div>
+
 </section>
+
+
+<!-- PROFIL & LEGALITAS -->
 
 <section class="section">
 
 <div class="section-title">
-<span>INFORMASI</span>
-<h2>profil KDMP Unjur</h2>
+
+<span>TENTANG KAMI</span>
+
+<h2>Dari Desa, Untuk Desa</h2>
+
 <p>
-Halaman ini akan dikembangkan menjadi modul lengkap sesuai kebutuhan koperasi.
+Koperasi dibangun dengan semangat kebersamaan dan pengembangan
+potensi ekonomi masyarakat Desa Unjur.
 </p>
+
 </div>
 
-<div class="cards">
 
-<div class="card">
-<div class="icon">🤝</div>
-<h3>Usaha Bersama</h3>
+<div class="profile-intro">
+
+
+<div class="profile-box">
+
+<h3>Koperasi Desa Merah Putih Unjur</h3>
+
 <p>
-Mengembangkan potensi desa melalui kerja sama koperasi dan anggota.
+Koperasi Desa Merah Putih Unjur merupakan wadah usaha bersama
+yang mendorong anggota dan masyarakat untuk mengembangkan
+potensi ekonomi desa secara bertahap dan berkelanjutan.
 </p>
-</div>
 
-<div class="card">
-<div class="icon">🏘️</div>
-<h3>Untuk Masyarakat</h3>
 <p>
-Memberikan pelayanan dan manfaat bagi masyarakat Desa Unjur.
+Pengembangan koperasi diarahkan pada kebutuhan masyarakat,
+potensi produk lokal, perdagangan kebutuhan pokok, hasil
+pertanian, serta unit usaha lain yang dapat dikembangkan
+bersama.
 </p>
-</div>
 
-<div class="card">
-<div class="icon">📈</div>
-<h3>Pengembangan</h3>
-<p>
-Usaha dikembangkan secara bertahap sesuai potensi dan kebutuhan desa.
-</p>
-</div>
+<button class="detail-btn" onclick="toggleDetail('sejarah')">
+Lihat Ringkasan
+</button>
 
-<div class="card">
-<div class="icon">💼</div>
-<h3>Anggota</h3>
-<p>
-Anggota menjadi bagian penting dalam kegiatan usaha koperasi.
-</p>
+<div id="sejarah" class="detail-content">
+
+Koperasi Desa Merah Putih Unjur berdiri pada tahun 2025
+dan terus dikembangkan melalui unit-unit usaha yang sesuai
+dengan potensi dan kebutuhan Desa Unjur.
+
 </div>
 
 </div>
+
+
+<div class="profile-box">
+
+<h3>Legalitas</h3>
+
+<ul class="legal-list">
+
+<li>
+<strong>Nomor AHU</strong>
+<span>AHU-0039640.AH.01.29.TAHUN 2025</span>
+</li>
+
+<li>
+<strong>Tanggal</strong>
+<span>10 Juni 2025</span>
+</li>
+
+<li>
+<strong>NIB</strong>
+<span>0309250073796</span>
+</li>
+
+<li>
+<strong>AD</strong>
+<span>10 Juni 2025</span>
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+
+<!-- STATISTIK -->
+
+<div class="profile-stats">
+
+<div class="profile-stat">
+<strong>71</strong>
+<span>Total Anggota</span>
+</div>
+
+<div class="profile-stat">
+<strong>71</strong>
+<span>Anggota Aktif</span>
+</div>
+
+<div class="profile-stat">
+<strong>2025</strong>
+<span>Tahun Berdiri</span>
+</div>
+
+<div class="profile-stat">
+<strong>4+</strong>
+<span>Bidang Potensi Usaha</span>
+</div>
+
+</div>
+
 </section>
 
-<footer>
-<div>
-<h3>KDMP UNJUR</h3>
-<p>Koperasi Desa Merah Putih Unjur</p>
+
+<!-- VISI MISI -->
+
+<section class="section business-section">
+
+<div class="section-title">
+
+<span>ARAH KOPERASI</span>
+
+<h2>Visi & Misi</h2>
+
 </div>
-<p>© 2026 KDMP Unjur</p>
+
+
+<div class="info-columns">
+
+<div class="info-box">
+
+<h3>🎯 Visi</h3>
+
+<p>
+Menjadi koperasi desa yang berkembang, mandiri, dan mampu
+memberikan manfaat nyata bagi anggota serta masyarakat
+Desa Unjur.
+</p>
+
+</div>
+
+
+<div class="info-box">
+
+<h3>🚀 Misi</h3>
+
+<ul>
+
+<li>Mengembangkan usaha sesuai potensi desa.</li>
+
+<li>Meningkatkan manfaat ekonomi bagi anggota.</li>
+
+<li>Mendorong pemasaran produk lokal.</li>
+
+<li>Membangun kerja sama dengan anggota dan masyarakat.</li>
+
+<li>Mengembangkan koperasi secara bertahap dan berkelanjutan.</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PENGURUS -->
+
+<section class="section">
+
+<div class="section-title">
+
+<span>STRUKTUR ORGANISASI</span>
+
+<h2>Pengurus KDMP Unjur</h2>
+
+<p>
+Pengurus yang menjalankan organisasi dan kegiatan koperasi.
+</p>
+
+</div>
+
+
+<div class="management">
+
+
+<div class="person">
+
+<div class="person-icon">👤</div>
+
+<h3>Donal Ambarita</h3>
+
+<span>KETUA</span>
+
+</div>
+
+
+<div class="person">
+
+<div class="person-icon">👤</div>
+
+<h3>Roy Frisa Siadari</h3>
+
+<span>SEKRETARIS</span>
+
+</div>
+
+
+<div class="person">
+
+<div class="person-icon">👤</div>
+
+<h3>Lasma Wati Silalahi</h3>
+
+<span>BENDAHARA</span>
+
+</div>
+
+
+<div class="person">
+
+<div class="person-icon">👤</div>
+
+<h3>Irpen Haidir Ambarita</h3>
+
+<span>WBU 1</span>
+
+</div>
+
+
+<div class="person">
+
+<div class="person-icon">👤</div>
+
+<h3>Pernando Hose</h3>
+
+<span>WBU 2</span>
+
+</div>
+
+
+<div class="person">
+
+<div class="person-icon">👤</div>
+
+<h3>Ariadi Syahputra Sinaga</h3>
+
+<span>WBU 3</span>
+
+</div>
+
+
+<div class="person">
+
+<div class="person-icon">👤</div>
+
+<h3>Alen Kinari Ambarita</h3>
+
+<span>WBU 4</span>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- INFORMASI RAT -->
+
+<section class="section business-section">
+
+<div class="section-title">
+
+<span>PERKEMBANGAN KOPERASI</span>
+
+<h2>RAT & Kegiatan Organisasi</h2>
+
+</div>
+
+
+<div class="info-columns">
+
+
+<div class="info-box">
+
+<h3>📋 RAT Tahun Buku 2025</h3>
+
+<p>
+Rapat Anggota Tahunan dilaksanakan pada
+<strong>08 Mei 2026</strong> di Balai Desa Unjur.
+</p>
+
+<button class="detail-btn" onclick="toggleDetail('rat')">
+Lihat Data
+</button>
+
+<div id="rat" class="detail-content">
+
+Anggota: 71 orang<br>
+Anggota aktif: 71 orang<br>
+Anggota sukarela: 2 orang<br>
+Karyawan: 0 orang<br>
+Pengembangan unit usaha: 09 Mei 2026
+
+</div>
+
+</div>
+
+
+<div class="info-box">
+
+<h3>🏢 Administrasi</h3>
+
+<p>
+Koperasi terus melengkapi administrasi dan pengembangan
+usaha sesuai kebutuhan organisasi.
+</p>
+
+<button class="detail-btn" onclick="toggleDetail('admin')">
+Lihat Informasi
+</button>
+
+<div id="admin" class="detail-content">
+
+Kegiatan pelayanan SPT KPP dilaksanakan pada
+19–20 Mei 2026 di Dinas Koperasi UMKM & Tenaga Kerja
+Kabupaten Samosir, dengan dokumen administrasi seperti
+laporan, neraca, dan stempel.
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CTA -->
+
+<section class="cta">
+
+<span>BERSAMA MEMBANGUN DESA</span>
+
+<h2>Mari Kembangkan Potensi Unjur</h2>
+
+<p>
+Koperasi menjadi ruang bersama untuk mengembangkan usaha,
+produk lokal, pertanian, dan kesejahteraan anggota.
+</p>
+
+<a href="produk.html" class="btn">
+Lihat Produk
+</a>
+
+<a href="unit-usaha.html" class="btn-outline">
+Lihat Unit Usaha
+</a>
+
+</section>
+
+
+<footer>
+
+<div>
+
+<h3>KDMP UNJUR</h3>
+
+<p>Koperasi Desa Merah Putih Unjur</p>
+
+<p>Membangun ekonomi desa bersama.</p>
+
+</div>
+
+
+<div>
+
+<h3>Menu</h3>
+
+<p><a href="index.html">Beranda</a></p>
+<p><a href="profil.html">Profil</a></p>
+<p><a href="produk.html">Produk</a></p>
+
+</div>
+
+
+<div>
+
+<h3>Unit Usaha</h3>
+
+<p><a href="unit-usaha.html">Unit Usaha</a></p>
+<p><a href="pertanian.html">Pertanian</a></p>
+<p><a href="kios-angkat.html">Kios Angkat</a></p>
+
+</div>
+
+
+<div>
+
+<h3>Informasi</h3>
+
+<p><a href="anggota.html">Anggota</a></p>
+<p><a href="berita.html">Berita</a></p>
+<p><a href="kontak.html">Kontak</a></p>
+
+</div>
+
 </footer>
+
+
+<script>
+
+function updateClock(){
+
+const now = new Date();
+
+const time = now.toLocaleTimeString('id-ID',{
+hour:'2-digit',
+minute:'2-digit',
+second:'2-digit',
+hour12:false
+});
+
+const date = now.toLocaleDateString('id-ID',{
+weekday:'long',
+day:'numeric',
+month:'long',
+year:'numeric'
+});
+
+document.getElementById('clockTime').textContent = time;
+document.getElementById('clockDate').textContent = date;
+
+}
+
+updateClock();
+
+setInterval(updateClock,1000);
+
+
+function toggleDetail(id){
+
+const element = document.getElementById(id);
+
+if(element){
+
+element.classList.toggle('show');
+
+}
+
+}
+
+</script>
 
 </body>
 </html>
