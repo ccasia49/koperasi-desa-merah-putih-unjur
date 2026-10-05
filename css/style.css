@@ -817,3 +817,126 @@ flex-direction:column;
     }
 }
 
+
+/* =========================================
+   MOBILE NAVIGATION
+   ========================================= */
+
+.mobile-menu-btn {
+    display: none;
+    border: 0;
+    background: transparent;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 6px;
+    line-height: 1;
+}
+
+@media (max-width: 900px) {
+
+    .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .nav-container {
+        position: relative;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .site-header nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 12px;
+        right: 12px;
+        background: #fff;
+        border-radius: 14px;
+        padding: 12px;
+        box-shadow: 0 12px 35px rgba(0,0,0,.15);
+        max-height: 75vh;
+        overflow-y: auto;
+    }
+
+    .site-header nav.mobile-open {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .site-header nav a {
+        display: block;
+        padding: 12px 14px;
+        border-radius: 9px;
+    }
+
+    .site-header nav a:hover,
+    .site-header nav a.active {
+        background: #f5eeee;
+    }
+
+    .digital-clock {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin: 10px 12px;
+        width: fit-content;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .page-hero h1 {
+        font-size: 2rem;
+    }
+
+    .section {
+        padding: 55px 0;
+    }
+
+    .section-heading h2,
+    .feature-box h2,
+    .cta-box h2 {
+        font-size: 1.7rem;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .process-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-box {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-actions,
+    .contact-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .cta-actions .btn,
+    .contact-actions .btn {
+        text-align: center;
+    }
+
+    .site-footer .container {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+
+}
+

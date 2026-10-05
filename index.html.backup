@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta name="description" content="Koperasi Desa Merah Putih Unjur, Samosir. Wadah ekonomi masyarakat desa untuk mengembangkan usaha, produk lokal, pertanian, dan kesejahteraan anggota.">
+    <meta name="keywords" content="Koperasi Desa Merah Putih Unjur, KDMP Unjur, Koperasi Unjur, koperasi Samosir, produk Unjur, pertanian Unjur, koperasi desa Samosir">
+    <meta name="author" content="Koperasi Desa Merah Putih Unjur">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+
+    <meta property="og:title" content="Koperasi Desa Merah Putih Unjur - Samosir">
+    <meta property="og:description" content="Website resmi Koperasi Desa Merah Putih Unjur, Samosir. Informasi koperasi, unit usaha, produk, pertanian, berita, dan kegiatan desa.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ccasia49.github.io/koperasi-desa-merah-putih-unjur/">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Koperasi Desa Merah Putih Unjur - Samosir">
+    <meta name="twitter:description" content="Website Koperasi Desa Merah Putih Unjur, Samosir.">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Koperasi Desa Merah Putih Unjur - Samosir</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+<div class="logo">
+<div class="logo-circle">KDMP</div>
+<div>
+<h2>KDMP UNJUR</h2>
+<small>Koperasi Desa Merah Putih Unjur</small>
+</div>
+</div>
+
+<nav>
+<a href="index.html">Beranda</a>
+<a href="profil.html">Profil</a>
+<a href="unit-usaha.html">Unit Usaha</a>
+<a href="produk.html">Produk</a>
+<a href="kios-angkat.html">Kios Angkat</a>
+<a href="pertanian.html">Pertanian</a>
+<a href="anggota.html">Anggota</a>
+<a href="berita.html">Berita</a>
+<a href="galeri.html">Galeri</a>
+<a href="kontak.html">Kontak</a>
+</nav>
+</header>
+
+<section class="hero">
+<div class="hero-content">
+<span>KOPERASI DESA MERAH PUTIH</span>
+<h1>Bersama Membangun Ekonomi Desa Unjur</h1>
+<p>
+Membangun usaha bersama, memenuhi kebutuhan masyarakat,
+dan membuka peluang ekonomi bagi anggota Desa Unjur.
+</p>
+<a href="produk.html" class="btn">Belanja Produk</a>
+<a href="profil.html" class="btn-outline">Tentang Kami</a>
+</div>
+</section>
+
+<section class="section">
+<div class="section-title">
+<span>UNIT USAHA</span>
+<h2>Melayani Kebutuhan Masyarakat</h2>
+<p>KDMP Unjur mengembangkan potensi usaha desa secara bertahap dan berkelanjutan.</p>
+</div>
+
+<div class="cards">
+
+<div class="card">
+<div class="icon">🛒</div>
+<h3>Sembako</h3>
+<p>Minyak, gula, beras dan kebutuhan pokok masyarakat.</p>
+<a href="produk.html">Lihat Produk →</a>
+</div>
+
+<div class="card">
+<div class="icon">🌾</div>
+<h3>Hasil Pertanian</h3>
+<p>Mendukung penampungan dan pemasaran hasil pertanian masyarakat.</p>
+<a href="pertanian.html">Selengkapnya →</a>
+</div>
+
+<div class="card">
+<div class="icon">🐟</div>
+<h3>Pora-Pora</h3>
+<p>Mengembangkan produk olahan ikan lokal Desa Unjur.</p>
+<a href="produk.html">Lihat Produk →</a>
+</div>
+
+<div class="card">
+<div class="icon">🏪</div>
+<h3>Kios Angkat</h3>
+<p>Melibatkan anggota dalam memperluas pemasaran produk koperasi.</p>
+<a href="kios-angkat.html">Selengkapnya →</a>
+</div>
+
+</div>
+</section>
+
+<section class="about">
+<div>
+<span>TENTANG KDMP UNJUR</span>
+<h2>Usaha Bersama Untuk Desa</h2>
+<p>
+Koperasi Desa Merah Putih Unjur berkomitmen mengembangkan
+potensi ekonomi yang ada di Desa Unjur dengan melibatkan
+anggota dan masyarakat.
+</p>
+<a href="profil.html" class="btn">Profil KDMP Unjur</a>
+</div>
+
+<div class="stats">
+<div><strong>71</strong><span>Anggota</span></div>
+<div><strong>4+</strong><span>Unit Usaha</span></div>
+<div><strong>2025</strong><span>Tahun Berdiri</span></div>
+</div>
+</section>
+
+<section class="cta">
+<h2>Mari Bertumbuh Bersama</h2>
+<p>Dukung produk lokal dan perkembangan ekonomi Desa Unjur.</p>
+<a href="produk.html" class="btn">Lihat Produk</a>
+</section>
+
+<footer>
+<div>
+<h3>KDMP UNJUR</h3>
+<p>Koperasi Desa Merah Putih Unjur</p>
+</div>
+<p>© 2026 KDMP Unjur</p>
+</footer>
+
+</body>
+</html>
