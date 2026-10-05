@@ -3,99 +3,538 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>galeri - KDMP Unjur</title>
+
+<title>Galeri - Koperasi Desa Merah Putih Unjur</title>
+<meta name="description" content="Galeri kegiatan dan dokumentasi Koperasi Desa Merah Putih Unjur, Samosir.">
+<meta name="robots" content="index, follow">
+
 <link rel="stylesheet" href="css/style.css">
+
+<style>
+.galeri-hero {
+    min-height: 360px;
+}
+
+.galeri-intro {
+    max-width: 850px;
+    margin: 0 auto 35px;
+    text-align: center;
+    line-height: 1.8;
+}
+
+.galeri-filter {
+    max-width: 1050px;
+    margin: 0 auto 30px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    border: 0;
+    padding: 11px 18px;
+    border-radius: 20px;
+    background: #eee;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background: #a00000;
+    color: #fff;
+}
+
+.galeri-grid {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 22px;
+}
+
+.galeri-item {
+    position: relative;
+    height: 240px;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 7px 22px rgba(0,0,0,.1);
+    background: linear-gradient(135deg,#8e0000,#df0000);
+}
+
+.galeri-placeholder {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+.galeri-placeholder .icon {
+    font-size: 52px;
+    margin-bottom: 10px;
+}
+
+.galeri-placeholder strong {
+    font-size: 18px;
+}
+
+.galeri-placeholder small {
+    margin-top: 7px;
+    opacity: .9;
+}
+
+.galeri-overlay {
+    position: absolute;
+    inset: auto 0 0;
+    padding: 20px;
+    background: linear-gradient(transparent,rgba(0,0,0,.8));
+    color: #fff;
+}
+
+.galeri-overlay strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.galeri-overlay small {
+    opacity: .85;
+}
+
+.galeri-item.hidden {
+    display: none;
+}
+
+.upload-info {
+    max-width: 850px;
+    margin: 50px auto 0;
+    padding: 30px;
+    background: linear-gradient(135deg,#fff,#f8eeee);
+    border-radius: 18px;
+    text-align: center;
+}
+
+.upload-info h2 {
+    margin-bottom: 12px;
+}
+
+.upload-info p {
+    line-height: 1.7;
+}
+
+.folder-box {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 16px;
+    background: #fff;
+    border-radius: 8px;
+    font-family: monospace;
+    color: #a00000;
+    font-weight: bold;
+}
+
+/* LIGHTBOX */
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,.82);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.lightbox.show {
+    display: flex;
+}
+
+.lightbox-box {
+    width: min(700px,100%);
+    background: #fff;
+    border-radius: 18px;
+    padding: 28px;
+    text-align: center;
+    position: relative;
+}
+
+.lightbox-icon {
+    font-size: 80px;
+    margin: 15px;
+}
+
+.lightbox-box h2 {
+    margin: 10px 0;
+}
+
+.lightbox-box p {
+    color: #666;
+    line-height: 1.7;
+}
+
+.close-lightbox {
+    position: absolute;
+    right: 15px;
+    top: 8px;
+    border: 0;
+    background: none;
+    font-size: 32px;
+    cursor: pointer;
+}
+
+@media(max-width:800px) {
+    .galeri-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+@media(max-width:550px) {
+    .galeri-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .galeri-item {
+        height: 220px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-<header>
-<div class="logo">
-<div class="logo-circle">KDMP</div>
-<div>
-<h2>KDMP UNJUR</h2>
-<small>Koperasi Desa Merah Putih Unjur</small>
-</div>
+<!-- ANIMASI ULOS -->
+<div class="ulos-animation" aria-hidden="true">
+    <div class="ulos-pattern"></div>
+    <div class="ulos-pattern"></div>
+    <div class="ulos-pattern"></div>
 </div>
 
-<nav>
-<a href="index.html">Beranda</a>
-<a href="profil.html">Profil</a>
-<a href="unit-usaha.html">Unit Usaha</a>
-<a href="produk.html">Produk</a>
-<a href="kios-angkat.html">Kios Angkat</a>
-<a href="pertanian.html">Pertanian</a>
-<a href="anggota.html">Anggota</a>
-<a href="berita.html">Berita</a>
-<a href="galeri.html">Galeri</a>
-<a href="kontak.html">Kontak</a>
-</nav>
+<!-- JAM DIGITAL -->
+<div class="digital-clock" id="digitalClock">
+    <span class="clock-icon">◷</span>
+    <span id="clockTime">00:00:00</span>
+    <small id="clockDate">Senin, 1 Januari 2026</small>
+</div>
+
+<header>
+    <div class="logo">
+        <div class="logo-circle">KDMP</div>
+        <div>
+            <h2>KDMP UNJUR</h2>
+            <small>Koperasi Desa Merah Putih Unjur</small>
+        </div>
+    </div>
+
+    <nav>
+        <a href="index.html">Beranda</a>
+        <a href="profil.html">Profil</a>
+        <a href="unit-usaha.html">Unit Usaha</a>
+        <a href="produk.html">Produk</a>
+        <a href="kios-angkat.html">Kios Angkat</a>
+        <a href="pertanian.html">Pertanian</a>
+        <a href="anggota.html">Anggota</a>
+        <a href="berita.html">Berita</a>
+        <a href="galeri.html">Galeri</a>
+        <a href="kontak.html">Kontak</a>
+    </nav>
 </header>
 
-<section class="hero" style="min-height:350px">
-<div class="hero-content">
-<span>KDMP UNJUR</span>
-<h1>galeri</h1>
-<p>
-Informasi dan layanan Koperasi Desa Merah Putih Unjur.
-</p>
-</div>
+<section class="hero galeri-hero">
+    <div class="hero-content">
+        <span>DOKUMENTASI • KDMP UNJUR</span>
+        <h1>Galeri Kegiatan</h1>
+        <p>
+            Dokumentasi kegiatan, koperasi, anggota, produk,
+            dan potensi Desa Unjur.
+        </p>
+    </div>
 </section>
 
 <section class="section">
 
-<div class="section-title">
-<span>INFORMASI</span>
-<h2>galeri KDMP Unjur</h2>
-<p>
-Halaman ini akan dikembangkan menjadi modul lengkap sesuai kebutuhan koperasi.
-</p>
-</div>
+    <div class="section-title">
+        <span>GALERI</span>
+        <h2>Dokumentasi KDMP Unjur</h2>
+    </div>
 
-<div class="cards">
+    <div class="galeri-intro">
+        <p>
+            Galeri ini disiapkan sebagai tempat dokumentasi perjalanan
+            Koperasi Desa Merah Putih Unjur. Foto kegiatan dapat
+            ditambahkan secara bertahap menggunakan dokumentasi asli.
+        </p>
+    </div>
 
-<div class="card">
-<div class="icon">🤝</div>
-<h3>Usaha Bersama</h3>
-<p>
-Mengembangkan potensi desa melalui kerja sama koperasi dan anggota.
-</p>
-</div>
+    <div class="galeri-filter">
 
-<div class="card">
-<div class="icon">🏘️</div>
-<h3>Untuk Masyarakat</h3>
-<p>
-Memberikan pelayanan dan manfaat bagi masyarakat Desa Unjur.
-</p>
-</div>
+        <button class="filter-btn active"
+                onclick="filterGallery('semua',this)">
+            Semua
+        </button>
 
-<div class="card">
-<div class="icon">📈</div>
-<h3>Pengembangan</h3>
-<p>
-Usaha dikembangkan secara bertahap sesuai potensi dan kebutuhan desa.
-</p>
-</div>
+        <button class="filter-btn"
+                onclick="filterGallery('koperasi',this)">
+            Koperasi
+        </button>
 
-<div class="card">
-<div class="icon">💼</div>
-<h3>Anggota</h3>
-<p>
-Anggota menjadi bagian penting dalam kegiatan usaha koperasi.
-</p>
-</div>
+        <button class="filter-btn"
+                onclick="filterGallery('kegiatan',this)">
+            Kegiatan
+        </button>
 
-</div>
+        <button class="filter-btn"
+                onclick="filterGallery('produk',this)">
+            Produk
+        </button>
+
+        <button class="filter-btn"
+                onclick="filterGallery('desa',this)">
+            Desa
+        </button>
+
+    </div>
+
+    <div class="galeri-grid">
+
+        <div class="galeri-item"
+             data-category="koperasi"
+             onclick="openGallery('🤝','Koperasi KDMP Unjur','Dokumentasi kegiatan dan perjalanan koperasi.')">
+
+            <div class="galeri-placeholder">
+                <div class="icon">🤝</div>
+                <strong>Koperasi</strong>
+                <small>Tempat foto kegiatan koperasi</small>
+            </div>
+
+            <div class="galeri-overlay">
+                <strong>Kegiatan Koperasi</strong>
+                <small>Klik untuk melihat</small>
+            </div>
+        </div>
+
+
+        <div class="galeri-item"
+             data-category="kegiatan"
+             onclick="openGallery('📅','Kegiatan KDMP Unjur','Dokumentasi rapat, pertemuan, dan kegiatan koperasi.')">
+
+            <div class="galeri-placeholder">
+                <div class="icon">📅</div>
+                <strong>Kegiatan</strong>
+                <small>Tempat foto kegiatan</small>
+            </div>
+
+            <div class="galeri-overlay">
+                <strong>Kegiatan</strong>
+                <small>Dokumentasi kegiatan</small>
+            </div>
+        </div>
+
+
+        <div class="galeri-item"
+             data-category="produk"
+             onclick="openGallery('🐟','Produk Lokal','Dokumentasi produk lokal dan hasil usaha anggota.')">
+
+            <div class="galeri-placeholder">
+                <div class="icon">🐟</div>
+                <strong>Produk Lokal</strong>
+                <small>Tempat foto produk</small>
+            </div>
+
+            <div class="galeri-overlay">
+                <strong>Produk</strong>
+                <small>Dokumentasi produk</small>
+            </div>
+        </div>
+
+
+        <div class="galeri-item"
+             data-category="desa"
+             onclick="openGallery('🌾','Potensi Desa','Dokumentasi potensi pertanian dan lingkungan Desa Unjur.')">
+
+            <div class="galeri-placeholder">
+                <div class="icon">🌾</div>
+                <strong>Potensi Desa</strong>
+                <small>Tempat foto potensi desa</small>
+            </div>
+
+            <div class="galeri-overlay">
+                <strong>Potensi Desa</strong>
+                <small>Pertanian dan lingkungan</small>
+            </div>
+        </div>
+
+
+        <div class="galeri-item"
+             data-category="koperasi"
+             onclick="openGallery('👥','Anggota KDMP','Dokumentasi anggota dan kebersamaan koperasi.')">
+
+            <div class="galeri-placeholder">
+                <div class="icon">👥</div>
+                <strong>Anggota</strong>
+                <small>Tempat foto anggota</small>
+            </div>
+
+            <div class="galeri-overlay">
+                <strong>Anggota</strong>
+                <small>Kebersamaan anggota</small>
+            </div>
+        </div>
+
+
+        <div class="galeri-item"
+             data-category="kegiatan"
+             onclick="openGallery('🏘️','Desa Unjur','Dokumentasi kegiatan dan lingkungan Desa Unjur.')">
+
+            <div class="galeri-placeholder">
+                <div class="icon">🏘️</div>
+                <strong>Desa Unjur</strong>
+                <small>Tempat foto desa</small>
+            </div>
+
+            <div class="galeri-overlay">
+                <strong>Desa Unjur</strong>
+                <small>Dokumentasi desa</small>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="upload-info">
+
+        <h2>Galeri Akan Terus Bertambah</h2>
+
+        <p>
+            Foto asli kegiatan KDMP Unjur dapat ditambahkan secara
+            bertahap. Dengan begitu galeri website akan menjadi
+            dokumentasi perjalanan koperasi dari waktu ke waktu.
+        </p>
+
+        <div class="folder-box">
+            galeri/
+        </div>
+
+    </div>
+
 </section>
 
-<footer>
-<div>
-<h3>KDMP UNJUR</h3>
-<p>Koperasi Desa Merah Putih Unjur</p>
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeGallery(event)">
+
+    <div class="lightbox-box">
+
+        <button class="close-lightbox"
+                onclick="closeGallery()">
+            ×
+        </button>
+
+        <div class="lightbox-icon" id="lightboxIcon">🤝</div>
+
+        <h2 id="lightboxTitle">Galeri</h2>
+
+        <p id="lightboxText"></p>
+
+    </div>
+
 </div>
-<p>© 2026 KDMP Unjur</p>
+
+<footer>
+    <div>
+        <h3>KDMP UNJUR</h3>
+        <p>Koperasi Desa Merah Putih Unjur</p>
+    </div>
+
+    <p>© 2026 KDMP Unjur</p>
 </footer>
+
+<script>
+function filterGallery(category, button) {
+
+    document.querySelectorAll(".filter-btn")
+        .forEach(btn => btn.classList.remove("active"));
+
+    button.classList.add("active");
+
+    document.querySelectorAll(".galeri-item")
+        .forEach(item => {
+
+            if (
+                category === "semua" ||
+                item.dataset.category === category
+            ) {
+                item.classList.remove("hidden");
+            } else {
+                item.classList.add("hidden");
+            }
+
+        });
+}
+
+function openGallery(icon, title, text) {
+
+    document.getElementById("lightboxIcon").textContent = icon;
+    document.getElementById("lightboxTitle").textContent = title;
+    document.getElementById("lightboxText").textContent = text;
+
+    document.getElementById("lightbox")
+        .classList.add("show");
+
+    document.body.style.overflow = "hidden";
+}
+
+function closeGallery(event) {
+
+    if (
+        event &&
+        event.target &&
+        event.target.id !== "lightbox"
+    ) {
+        return;
+    }
+
+    document.getElementById("lightbox")
+        .classList.remove("show");
+
+    document.body.style.overflow = "";
+}
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.key === "Escape") {
+        closeGallery();
+    }
+
+});
+
+function updateClock() {
+
+    const now = new Date();
+
+    const time = now.toLocaleTimeString("id-ID", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false
+    });
+
+    const date = now.toLocaleDateString("id-ID", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    });
+
+    document.getElementById("clockTime").textContent = time;
+    document.getElementById("clockDate").textContent = date;
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+</script>
 
 </body>
 </html>
