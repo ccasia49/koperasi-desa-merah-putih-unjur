@@ -1,343 +1,268 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Admin Produk - KDMP Unjur</title>
+<title>Admin Produk - KDMP Unjur</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<link rel="stylesheet" href="../css/style.css">
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            color: #222;
-        }
+<style>
+.admin-wrap {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
 
-        header {
-            background: #b40000;
-            color: white;
-            padding: 20px;
-        }
+.admin-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 24px;
+    margin-bottom: 18px;
+    box-shadow: 0 8px 30px rgba(0,0,0,.08);
+}
 
-        header h1 {
-            margin: 0;
-            font-size: 22px;
-        }
+.admin-card h3 {
+    margin-top: 0;
+}
 
-        header p {
-            margin: 5px 0 0;
-            opacity: .9;
-        }
+.form-group {
+    margin-bottom: 16px;
+}
 
-        .container {
-            max-width: 1000px;
-            margin: 25px auto;
-            padding: 0 15px;
-        }
+.form-group label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
 
-        .card {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,.08);
-        }
+.form-group input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+}
 
-        input,
-        textarea {
-            width: 100%;
-            padding: 12px;
-            margin-top: 6px;
-            margin-bottom: 12px;
-            border: 1px solid #ccc;
-            border-radius: 7px;
-            font-size: 15px;
-        }
+.admin-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
 
-        button {
-            border: 0;
-            padding: 10px 15px;
-            border-radius: 7px;
-            cursor: pointer;
-            margin-right: 5px;
-        }
+.status-box {
+    margin-top: 18px;
+    padding: 14px;
+    border-radius: 10px;
+    background: #f5f5f5;
+}
 
-        .tambah {
-            background: #b40000;
-            color: white;
-        }
-
-        .hapus {
-            background: #333;
-            color: white;
-        }
-
-        .produk {
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 10px;
-        }
-
-        .produk h3 {
-            margin-top: 0;
-        }
-
-        .harga {
-            font-weight: bold;
-            color: #b40000;
-        }
-
-        .stok {
-            margin: 8px 0;
-        }
-
-        label {
-            font-weight: bold;
-        }
-
-        .kosong {
-            text-align: center;
-            color: #777;
-            padding: 20px;
-        }
-    </style>
+.price-preview {
+    margin-top: 10px;
+    font-weight: 700;
+}
+</style>
 </head>
 
 <body>
 
-<header>
-    <h1>Admin Produk</h1>
-    <p>Koperasi Desa Merah Putih Unjur</p>
+<div class="ulos-animation" aria-hidden="true">
+    <div class="ulos-pattern"></div>
+    <div class="ulos-pattern"></div>
+    <div class="ulos-pattern"></div>
+</div>
+
+<header class="site-header">
+    <div class="container nav-container">
+
+        <a href="../index.html" class="logo">
+            <strong>KDMP</strong>
+            <span>Unjur</span>
+        </a>
+
+        <nav>
+            <a href="../index.html">Website</a>
+            <a href="produk.html" class="active">Produk</a>
+        </nav>
+
+    </div>
 </header>
 
-<div class="container">
+<div class="admin-wrap">
 
-    <div class="card">
+    <div class="section-heading">
+        <span class="eyebrow">ADMINISTRATOR</span>
+        <h1>Kelola Harga Produk</h1>
+        <p>
+            Harga disimpan di browser perangkat ini.
+        </p>
+    </div>
 
-        <h2>Tambah Produk</h2>
+    <div class="admin-card">
 
-        <form id="formProduk">
+        <div class="form-group">
+            <label for="beras">Beras</label>
+            <input id="beras" type="number" min="0" placeholder="Masukkan harga">
+            <div class="price-preview" id="previewBeras"></div>
+        </div>
 
-            <label>Nama Produk</label>
-            <input
-                type="text"
-                id="nama"
-                placeholder="Contoh: Beras Unjur"
-                required
-            >
+        <div class="form-group">
+            <label for="minyak">Minyak Goreng</label>
+            <input id="minyak" type="number" min="0" placeholder="Masukkan harga">
+            <div class="price-preview" id="previewMinyak"></div>
+        </div>
 
-            <label>Kategori</label>
-            <input
-                type="text"
-                id="kategori"
-                placeholder="Contoh: Sembako"
-            >
+        <div class="form-group">
+            <label for="gula">Gula</label>
+            <input id="gula" type="number" min="0" placeholder="Masukkan harga">
+            <div class="price-preview" id="previewGula"></div>
+        </div>
 
-            <label>Harga</label>
-            <input
-                type="number"
-                id="harga"
-                placeholder="Contoh: 15000"
-            >
+        <div class="form-group">
+            <label for="bilih">Bilih-Pora Crispy Toba</label>
+            <input id="bilih" type="number" min="0" placeholder="Masukkan harga">
+            <div class="price-preview" id="previewBilih"></div>
+        </div>
 
-            <label>Stok</label>
-            <input
-                type="number"
-                id="stok"
-                placeholder="Contoh: 20"
-            >
-
-            <label>Deskripsi</label>
-            <textarea
-                id="deskripsi"
-                placeholder="Deskripsi produk"
-            ></textarea>
-
-            <button class="tambah" type="submit">
-                + Tambah Produk
+        <div class="admin-actions">
+            <button class="btn btn-primary" onclick="savePrices()">
+                Simpan Harga
             </button>
 
-        </form>
+            <button class="btn btn-secondary" onclick="resetPrices()">
+                Reset
+            </button>
+        </div>
+
+        <div class="status-box" id="status">
+            Belum ada perubahan.
+        </div>
 
     </div>
 
+    <div class="admin-card">
 
-    <div class="card">
+        <h3>Catatan</h3>
 
-        <h2>Daftar Produk</h2>
+        <p>
+            Sistem ini menggunakan penyimpanan lokal browser
+            (<strong>localStorage</strong>). Data belum tersimpan
+            ke server atau database koperasi.
+        </p>
 
-        <div id="daftarProduk">
-            Memuat produk...
-        </div>
+        <p>
+            Untuk penggunaan admin sebenarnya dengan banyak perangkat,
+            tahap berikutnya adalah menghubungkannya ke backend/database.
+        </p>
 
     </div>
 
 </div>
 
-
 <script>
+const fields = {
+    beras: "Beras",
+    minyak: "Minyak Goreng",
+    gula: "Gula",
+    bilih: "Bilih-Pora Crispy Toba"
+};
 
-const API = "http://localhost:3000";
+function formatRupiah(value) {
+    if (!value || Number(value) <= 0) {
+        return "Harga belum diatur";
+    }
 
+    return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        maximumFractionDigits: 0
+    }).format(Number(value));
+}
 
-async function tampilkanProduk() {
+function loadPrices() {
 
-    const container = document.getElementById("daftarProduk");
+    Object.keys(fields).forEach(function(id) {
 
-    try {
+        const value = localStorage.getItem(
+            "kdmp_price_" + fields[id]
+        );
 
-        const response = await fetch(API + "/api/produk");
-
-        const produk = await response.json();
-
-        if (produk.length === 0) {
-
-            container.innerHTML =
-                '<div class="kosong">Belum ada produk.</div>';
-
-            return;
+        if (value !== null) {
+            document.getElementById(id).value = value;
         }
 
-        container.innerHTML = "";
+        updatePreview(id);
+    });
+}
 
-        produk.forEach(p => {
+function updatePreview(id) {
 
-            const div = document.createElement("div");
+    const value = document.getElementById(id).value;
 
-            div.className = "produk";
+    const preview = document.getElementById(
+        "preview" +
+        id.charAt(0).toUpperCase() +
+        id.slice(1)
+    );
 
-            div.innerHTML = `
-                <h3>${p.nama}</h3>
-
-                <div>
-                    Kategori: ${p.kategori || "-"}
-                </div>
-
-                <div class="harga">
-                    Rp ${Number(p.harga).toLocaleString("id-ID")}
-                </div>
-
-                <div class="stok">
-                    Stok: ${p.stok}
-                </div>
-
-                <div>
-                    ${p.deskripsi || ""}
-                </div>
-
-                <br>
-
-                <button
-                    class="hapus"
-                    onclick="hapusProduk(${p.id})">
-                    Hapus
-                </button>
-            `;
-
-            container.appendChild(div);
-
-        });
-
-    } catch (error) {
-
-        container.innerHTML =
-            "<b>Gagal terhubung ke server.</b>";
-
+    if (preview) {
+        preview.textContent = formatRupiah(value);
     }
 }
 
+function savePrices() {
 
-document
-    .getElementById("formProduk")
-    .addEventListener("submit", async function(e) {
+    Object.keys(fields).forEach(function(id) {
 
-        e.preventDefault();
+        const value = document.getElementById(id).value;
 
-        const data = {
-
-            nama: document.getElementById("nama").value,
-
-            kategori:
-                document.getElementById("kategori").value,
-
-            harga:
-                document.getElementById("harga").value,
-
-            stok:
-                document.getElementById("stok").value,
-
-            deskripsi:
-                document.getElementById("deskripsi").value
-
-        };
-
-
-        const response = await fetch(
-            API + "/api/produk",
-            {
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify(data)
-            }
+        localStorage.setItem(
+            "kdmp_price_" + fields[id],
+            value || "0"
         );
 
-
-        if (response.ok) {
-
-            alert("Produk berhasil ditambahkan!");
-
-            document.getElementById("formProduk").reset();
-
-            tampilkanProduk();
-
-        } else {
-
-            alert("Gagal menambahkan produk.");
-
-        }
-
+        updatePreview(id);
     });
 
+    document.getElementById("status").textContent =
+        "✓ Harga berhasil disimpan di browser ini.";
+}
 
-async function hapusProduk(id) {
+function resetPrices() {
 
-    if (!confirm("Hapus produk ini?")) {
+    if (!confirm("Reset semua harga?")) {
         return;
     }
 
-    const response = await fetch(
-        API + "/api/produk/" + id,
-        {
-            method: "DELETE"
+    Object.keys(fields).forEach(function(id) {
+
+        localStorage.removeItem(
+            "kdmp_price_" + fields[id]
+        );
+
+        document.getElementById(id).value = "";
+
+        updatePreview(id);
+    });
+
+    document.getElementById("status").textContent =
+        "Harga telah dikosongkan.";
+}
+
+Object.keys(fields).forEach(function(id) {
+
+    document.getElementById(id).addEventListener(
+        "input",
+        function() {
+            updatePreview(id);
         }
     );
 
+});
 
-    if (response.ok) {
-
-        tampilkanProduk();
-
-    } else {
-
-        alert("Gagal menghapus produk.");
-
-    }
-
-}
-
-
-tampilkanProduk();
-
+loadPrices();
 </script>
 
 </body>
