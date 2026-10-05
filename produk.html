@@ -289,7 +289,7 @@ Produk Lokal
         <a
             class="order-btn"
             href="#"
-            onclick="addToCart('Beras', 0)">
+            onclick="addToCart('Beras', productPrices['Beras'])">
             Pesan
         </a>
 
@@ -334,7 +334,7 @@ Produk Lokal
         <a
             class="order-btn"
             href="#"
-            onclick="addToCart('Minyak Goreng', 0)">
+            onclick="addToCart('Minyak Goreng', productPrices['Minyak Goreng'])">
             Pesan
         </a>
 
@@ -379,7 +379,7 @@ Produk Lokal
         <a
             class="order-btn"
             href="#"
-            onclick="addToCart('Gula', 0)">
+            onclick="addToCart('Gula', productPrices['Gula'])">
             Pesan
         </a>
 
@@ -424,7 +424,7 @@ Produk Lokal
         <a
             class="order-btn"
             href="#"
-            onclick="addToCart('Bilih-Pora Crispy Toba', 0)">
+            onclick="addToCart('Bilih-Pora Crispy Toba', productPrices['Bilih-Pora Crispy Toba'])">
             Pesan
         </a>
 
@@ -623,6 +623,18 @@ function orderProduct(product){
 
 
 <script>
+/*
+ * HARGA PRODUK
+ * Isi harga di bawah jika harga resmi sudah ditetapkan.
+ * Untuk sementara 0 berarti harga belum ditampilkan.
+ */
+const productPrices = {
+    "Beras": 0,
+    "Minyak Goreng": 0,
+    "Gula": 0,
+    "Bilih-Pora Crispy Toba": 0
+};
+
 const cart = {};
 
 function formatRupiah(value) {
