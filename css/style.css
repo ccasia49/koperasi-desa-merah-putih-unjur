@@ -449,3 +449,371 @@ flex-direction:column;
         animation: none;
     }
 }
+
+/* =========================
+   JAM DIGITAL
+========================= */
+
+.digital-clock{
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    z-index:9998;
+
+    min-width:170px;
+    padding:11px 15px;
+
+    color:#fff;
+    text-align:center;
+
+    background:rgba(70,0,0,.94);
+    border:1px solid rgba(255,255,255,.25);
+    border-radius:14px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+
+    backdrop-filter:blur(10px);
+
+    animation:clockFloat 3s ease-in-out infinite;
+}
+
+.clock-icon{
+    margin-right:5px;
+    font-size:17px;
+}
+
+#clockTime{
+    font-size:19px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+.digital-clock small{
+    display:block;
+    margin-top:2px;
+
+    color:rgba(255,255,255,.72);
+
+    font-size:10px;
+}
+
+@keyframes clockFloat{
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-4px);
+    }
+}
+
+
+/* =========================
+   SCROLL ANIMATION
+========================= */
+
+.section,
+.about,
+.cta{
+    animation:sectionReveal .8s ease both;
+}
+
+@keyframes sectionReveal{
+    from{
+        opacity:.75;
+        transform:translateY(18px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+
+/* =========================
+   MOBILE TABLET
+========================= */
+
+@media(max-width:1100px){
+
+    header{
+        padding-left:4%;
+        padding-right:4%;
+    }
+
+    nav{
+        gap:2px;
+    }
+
+    nav a{
+        padding:8px 7px;
+        font-size:12px;
+    }
+
+    .cards{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    footer{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:760px){
+
+    header{
+        min-height:70px;
+        padding:10px 5%;
+
+        position:relative;
+
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .logo{
+        min-width:0;
+    }
+
+    .logo-circle{
+        width:44px;
+        height:44px;
+    }
+
+    .logo h2{
+        font-size:16px;
+    }
+
+    .logo small{
+        font-size:10px;
+    }
+
+    nav{
+        width:100%;
+
+        display:flex;
+
+        justify-content:flex-start;
+
+        overflow-x:auto;
+        flex-wrap:nowrap;
+
+        padding-bottom:5px;
+
+        scrollbar-width:none;
+    }
+
+    nav::-webkit-scrollbar{
+        display:none;
+    }
+
+    nav a{
+        flex-shrink:0;
+
+        padding:8px 10px;
+
+        background:#fafafa;
+        border-radius:7px;
+
+        font-size:12px;
+    }
+
+    nav a::after{
+        display:none;
+    }
+
+
+    .hero{
+        min-height:650px;
+
+        padding:65px 7% 55px;
+
+        align-items:center;
+    }
+
+    .hero h1{
+        margin-top:18px;
+
+        font-size:43px;
+        letter-spacing:-1.5px;
+    }
+
+    .hero p{
+        font-size:16px;
+    }
+
+    .hero-buttons{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .hero-buttons a{
+        text-align:center;
+    }
+
+    .hero-info{
+        gap:22px;
+        margin-top:42px;
+    }
+
+    .hero-info strong{
+        font-size:23px;
+    }
+
+
+    .section{
+        padding:70px 6%;
+    }
+
+    .section-title{
+        margin-bottom:38px;
+    }
+
+    .section-title h2,
+    .about h2{
+        font-size:30px;
+    }
+
+
+    .cards{
+        grid-template-columns:1fr;
+        gap:17px;
+    }
+
+    .card{
+        padding:25px;
+    }
+
+    .card p{
+        min-height:auto;
+    }
+
+
+    .about{
+        grid-template-columns:1fr;
+
+        padding:70px 7%;
+
+        gap:38px;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .stats div{
+        min-height:110px;
+    }
+
+    .stats strong{
+        font-size:27px;
+    }
+
+
+    .cta{
+        padding:70px 7%;
+    }
+
+    .cta .btn,
+    .cta .btn-outline{
+        margin:5px 0;
+
+        width:100%;
+    }
+
+
+    footer{
+        grid-template-columns:1fr;
+
+        padding:50px 7%;
+
+        gap:28px;
+    }
+
+
+    .digital-clock{
+        right:10px;
+        bottom:10px;
+
+        min-width:135px;
+
+        padding:8px 10px;
+    }
+
+    #clockTime{
+        font-size:15px;
+    }
+
+    .digital-clock small{
+        font-size:9px;
+    }
+
+    .ulos-animation{
+        height:6px;
+    }
+}
+
+
+/* =========================
+   SMALL PHONE
+========================= */
+
+@media(max-width:400px){
+
+    .hero{
+        min-height:620px;
+        padding-left:6%;
+        padding-right:6%;
+    }
+
+    .hero h1{
+        font-size:37px;
+    }
+
+    .hero-info{
+        gap:15px;
+    }
+
+    .hero-info strong{
+        font-size:20px;
+    }
+
+    .hero-info span{
+        font-size:10px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .digital-clock{
+        min-width:120px;
+    }
+}
+
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    html{
+        scroll-behavior:auto;
+    }
+
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
+    }
+}
+
