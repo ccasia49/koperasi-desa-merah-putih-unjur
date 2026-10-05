@@ -289,7 +289,7 @@ Produk Lokal
         <a
             class="order-btn"
             href="#"
-            onclick="orderProduct('Beras')">
+            onclick="addToCart('Beras', 0)">
             Pesan
         </a>
 
@@ -334,7 +334,7 @@ Produk Lokal
         <a
             class="order-btn"
             href="#"
-            onclick="orderProduct('Minyak Goreng')">
+            onclick="addToCart('Minyak Goreng', 0)">
             Pesan
         </a>
 
@@ -379,7 +379,7 @@ Produk Lokal
         <a
             class="order-btn"
             href="#"
-            onclick="orderProduct('Gula')">
+            onclick="addToCart('Gula', 0)">
             Pesan
         </a>
 
@@ -424,7 +424,7 @@ Produk Lokal
         <a
             class="order-btn"
             href="#"
-            onclick="orderProduct('Bilih-Pora Crispy Toba')">
+            onclick="addToCart('Bilih-Pora Crispy Toba', 0)">
             Pesan
         </a>
 
@@ -619,6 +619,150 @@ function orderProduct(product){
     return false;
 }
 
+</script>
+
+
+<script>
+const cart = {};
+
+function formatRupiah(value) {
+    return new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        maximumFractionDigits: 0
+    }).format(value);
+}
+
+function addToCart(name, price) {
+    if (!cart[name]) {
+        cart[name] = {
+            name: name,
+            price: Number(price),
+            qty: 0
+        };
+    }
+
+    cart[name].qty++;
+    renderCart();
+
+    document.getElementById('cartSection')?.scrollIntoView({
+        behavior: 'smooth'
+    });
+}
+
+function changeQty(name, amount) {
+    if (!cart[name]) return;
+
+    cart[name].qty += amount;
+
+    if (cart[name].qty <= 0) {
+        delete cart[name];
+    }
+
+    renderCart();
+}
+
+function clearCart() {
+    Object.keys(cart).forEach(key => delete cart[key]);
+    renderCart();
+}
+
+function renderCart() {
+    const container = document.getElementById('cartItems');
+    const summary = document.getElementById('cartSummary');
+    const countEl = document.getElementById('cartCount');
+    const totalEl = document.getElementById('cartTotal');
+
+    if (!container) return;
+
+    const items = Object.values(cart);
+
+    if (items.length === 0) {
+        container.innerHTML = `
+            <div class="info-card">
+                <div class="card-icon">🛒</div>
+                <h3>Keranjang masih kosong</h3>
+                <p>Pilih produk di atas untuk mulai membuat pesanan.</p>
+            </div>
+        `;
+
+        if (summary) summary.style.display = 'none';
+        return;
+    }
+
+    let totalItems = 0;
+    let totalPrice = 0;
+
+    container.innerHTML = items.map(item => {
+        const subtotal = item.price * item.qty;
+
+        totalItems += item.qty;
+        totalPrice += subtotal;
+
+        return `
+            <div class="contact-panel" style="margin-bottom:12px;">
+                <div class="contact-row">
+                    <strong>${item.name}</strong>
+                    <span>${formatRupiah(item.price)}</span>
+                </div>
+
+                <div class="contact-row">
+                    <strong>Jumlah</strong>
+                    <span>
+                        <button onclick="changeQty('${item.name}', -1)">−</button>
+                        <strong style="margin:0 12px;">${item.qty}</strong>
+                        <button onclick="changeQty('${item.name}', 1)">+</button>
+                    </span>
+                </div>
+
+                <div class="contact-row">
+                    <strong>Subtotal</strong>
+                    <span>${formatRupiah(subtotal)}</span>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    if (summary) summary.style.display = 'block';
+    if (countEl) countEl.textContent = totalItems;
+    if (totalEl) totalEl.textContent = formatRupiah(totalPrice);
+}
+
+function copyOrder() {
+    const items = Object.values(cart);
+
+    if (!items.length) return;
+
+    let total = 0;
+
+    let text = `PESANAN KDMP UNJUR\n`;
+    text += `====================\n`;
+
+    items.forEach((item, index) => {
+        const subtotal = item.price * item.qty;
+        total += subtotal;
+
+        text += `${index + 1}. ${item.name}\n`;
+        text += `   Jumlah: ${item.qty}\n`;
+        text += `   Subtotal: ${formatRupiah(subtotal)}\n`;
+    });
+
+    text += `====================\n`;
+    text += `Total: ${formatRupiah(total)}\n`;
+
+    navigator.clipboard.writeText(text).then(() => {
+        const status = document.getElementById('copyStatus');
+
+        if (status) {
+            status.textContent =
+                '✓ Pesanan berhasil disalin. Tempelkan ke chat/admin KDMP Unjur.';
+        }
+    }).catch(() => {
+        alert(text);
+    });
+}
+
+renderCart();
 </script>
 
 </body>
