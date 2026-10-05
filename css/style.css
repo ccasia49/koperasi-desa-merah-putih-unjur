@@ -295,3 +295,157 @@ footer{
 flex-direction:column;
 }
 }
+
+
+/* =========================================
+   ANIMASI ULОS KDMP UNJUR
+   ========================================= */
+
+.ulos-animation {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 8px;
+    z-index: 9999;
+    display: flex;
+    overflow: hidden;
+    pointer-events: none;
+    background: #8b0000;
+}
+
+.ulos-pattern {
+    flex: 1;
+    height: 100%;
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 25%,
+            #8b0000 25%,
+            #8b0000 50%,
+            #ffffff 50%,
+            #ffffff 75%,
+            #8b0000 75%
+        );
+    background-size: 28px 28px;
+    animation: ulosMove 8s linear infinite;
+}
+
+.ulos-pattern:nth-child(2) {
+    background:
+        linear-gradient(
+            45deg,
+            #8b0000 25%,
+            #ffffff 25%,
+            #ffffff 50%,
+            #8b0000 50%,
+            #8b0000 75%,
+            #ffffff 75%
+        );
+    background-size: 28px 28px;
+    animation-duration: 6s;
+}
+
+.ulos-pattern:nth-child(3) {
+    animation-duration: 10s;
+}
+
+@keyframes ulosMove {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 140px 0;
+    }
+}
+
+
+/* =========================================
+   JAM DIGITAL
+   ========================================= */
+
+.digital-clock {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 9998;
+
+    min-width: 155px;
+    padding: 10px 15px;
+
+    color: #fff;
+    background: rgba(70, 0, 0, 0.92);
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 12px;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,.22);
+
+    backdrop-filter: blur(8px);
+
+    text-align: center;
+    font-family: Arial, sans-serif;
+
+    animation: clockFloat 3s ease-in-out infinite;
+}
+
+.clock-icon {
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+#clockTime {
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.digital-clock small {
+    display: block;
+    margin-top: 3px;
+    font-size: 10px;
+    opacity: .8;
+}
+
+@keyframes clockFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .digital-clock {
+        right: 10px;
+        bottom: 10px;
+        min-width: 125px;
+        padding: 7px 10px;
+    }
+
+    #clockTime {
+        font-size: 15px;
+    }
+
+    .digital-clock small {
+        font-size: 9px;
+    }
+
+    .ulos-animation {
+        height: 6px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ulos-pattern,
+    .digital-clock {
+        animation: none;
+    }
+}

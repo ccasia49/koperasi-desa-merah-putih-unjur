@@ -26,6 +26,21 @@
 
 <body>
 
+<!-- ANIMASI ULОS -->
+<div class="ulos-animation" aria-hidden="true">
+    <div class="ulos-pattern"></div>
+    <div class="ulos-pattern"></div>
+    <div class="ulos-pattern"></div>
+</div>
+
+<!-- JAM DIGITAL -->
+<div class="digital-clock" id="digitalClock">
+    <span class="clock-icon">◷</span>
+    <span id="clockTime">00:00:00</span>
+    <small id="clockDate">Senin, 1 Januari 2026</small>
+</div>
+
+
 <header>
     <div class="logo">
         <div class="logo-circle">KDMP</div>
@@ -509,5 +524,34 @@
 </div>
 
 
+
+<script>
+function updateClock() {
+    const now = new Date();
+
+    const time = now.toLocaleTimeString('id-ID', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+    });
+
+    const date = now.toLocaleDateString('id-ID', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    });
+
+    const timeEl = document.getElementById('clockTime');
+    const dateEl = document.getElementById('clockDate');
+
+    if (timeEl) timeEl.textContent = time;
+    if (dateEl) dateEl.textContent = date;
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+</script>
 </body>
 </html>
