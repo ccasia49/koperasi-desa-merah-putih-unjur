@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ccasia49.github.io/koperasi-desa-merah-putih-unjur/sitemap.xml
