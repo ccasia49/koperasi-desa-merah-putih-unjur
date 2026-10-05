@@ -3,99 +3,367 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>anggota - KDMP Unjur</title>
+
+<title>Anggota - Koperasi Desa Merah Putih Unjur</title>
+<meta name="description" content="Informasi keanggotaan Koperasi Desa Merah Putih Unjur, Samosir.">
+<meta name="robots" content="index, follow">
+
 <link rel="stylesheet" href="css/style.css">
+
+<style>
+.member-hero {
+    min-height: 380px;
+}
+
+.member-intro {
+    max-width: 850px;
+    margin: 0 auto 40px;
+    text-align: center;
+    line-height: 1.8;
+}
+
+.member-stats {
+    max-width: 1050px;
+    margin: 0 auto 45px;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 18px;
+}
+
+.member-stat {
+    background: #fff;
+    padding: 25px 15px;
+    text-align: center;
+    border-radius: 16px;
+    box-shadow: 0 7px 22px rgba(0,0,0,.08);
+}
+
+.member-stat strong {
+    display: block;
+    font-size: 34px;
+    color: #a00000;
+    margin-bottom: 5px;
+}
+
+.member-stat span {
+    font-size: 14px;
+}
+
+.member-grid {
+    max-width: 1050px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 22px;
+}
+
+.member-card {
+    background: #fff;
+    border-radius: 17px;
+    padding: 28px;
+    box-shadow: 0 7px 22px rgba(0,0,0,.08);
+    transition: .3s;
+}
+
+.member-card:hover {
+    transform: translateY(-5px);
+}
+
+.member-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+}
+
+.member-card h3 {
+    margin-bottom: 10px;
+}
+
+.member-card p {
+    line-height: 1.7;
+}
+
+.info-box {
+    max-width: 900px;
+    margin: 50px auto 0;
+    padding: 32px;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 7px 22px rgba(0,0,0,.08);
+}
+
+.info-box h2 {
+    margin-bottom: 15px;
+}
+
+.info-box p,
+.info-box li {
+    line-height: 1.8;
+}
+
+.info-box ul {
+    padding-left: 22px;
+}
+
+.member-cta {
+    max-width: 950px;
+    margin: 50px auto 0;
+    padding: 35px;
+    border-radius: 20px;
+    background: linear-gradient(135deg,#fff,#f8eeee);
+    text-align: center;
+}
+
+.member-cta h2 {
+    margin-bottom: 12px;
+}
+
+.member-cta p {
+    line-height: 1.7;
+}
+
+.cta-buttons {
+    margin-top: 20px;
+}
+
+.cta-buttons a {
+    display: inline-block;
+    margin: 5px;
+    padding: 12px 20px;
+    border-radius: 9px;
+    background: #a00000;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.cta-buttons a.secondary {
+    background: #333;
+}
+
+@media(max-width:800px) {
+    .member-stats {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .member-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width:450px) {
+    .member-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .member-stat {
+        padding: 20px 8px;
+    }
+
+    .member-stat strong {
+        font-size: 28px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-<header>
-<div class="logo">
-<div class="logo-circle">KDMP</div>
-<div>
-<h2>KDMP UNJUR</h2>
-<small>Koperasi Desa Merah Putih Unjur</small>
-</div>
+<!-- ANIMASI ULOS -->
+<div class="ulos-animation" aria-hidden="true">
+    <div class="ulos-pattern"></div>
+    <div class="ulos-pattern"></div>
+    <div class="ulos-pattern"></div>
 </div>
 
-<nav>
-<a href="index.html">Beranda</a>
-<a href="profil.html">Profil</a>
-<a href="unit-usaha.html">Unit Usaha</a>
-<a href="produk.html">Produk</a>
-<a href="kios-angkat.html">Kios Angkat</a>
-<a href="pertanian.html">Pertanian</a>
-<a href="anggota.html">Anggota</a>
-<a href="berita.html">Berita</a>
-<a href="galeri.html">Galeri</a>
-<a href="kontak.html">Kontak</a>
-</nav>
+<!-- JAM DIGITAL -->
+<div class="digital-clock" id="digitalClock">
+    <span class="clock-icon">◷</span>
+    <span id="clockTime">00:00:00</span>
+    <small id="clockDate">Senin, 1 Januari 2026</small>
+</div>
+
+<header>
+    <div class="logo">
+        <div class="logo-circle">KDMP</div>
+        <div>
+            <h2>KDMP UNJUR</h2>
+            <small>Koperasi Desa Merah Putih Unjur</small>
+        </div>
+    </div>
+
+    <nav>
+        <a href="index.html">Beranda</a>
+        <a href="profil.html">Profil</a>
+        <a href="unit-usaha.html">Unit Usaha</a>
+        <a href="produk.html">Produk</a>
+        <a href="kios-angkat.html">Kios Angkat</a>
+        <a href="pertanian.html">Pertanian</a>
+        <a href="anggota.html">Anggota</a>
+        <a href="berita.html">Berita</a>
+        <a href="galeri.html">Galeri</a>
+        <a href="kontak.html">Kontak</a>
+    </nav>
 </header>
 
-<section class="hero" style="min-height:350px">
-<div class="hero-content">
-<span>KDMP UNJUR</span>
-<h1>anggota</h1>
-<p>
-Informasi dan layanan Koperasi Desa Merah Putih Unjur.
-</p>
-</div>
+<section class="hero member-hero">
+    <div class="hero-content">
+        <span>KEANGGOTAAN • KDMP UNJUR</span>
+        <h1>Anggota Koperasi</h1>
+        <p>
+            Anggota merupakan bagian penting dalam membangun dan
+            mengembangkan Koperasi Desa Merah Putih Unjur.
+        </p>
+    </div>
 </section>
 
 <section class="section">
 
-<div class="section-title">
-<span>INFORMASI</span>
-<h2>anggota KDMP Unjur</h2>
-<p>
-Halaman ini akan dikembangkan menjadi modul lengkap sesuai kebutuhan koperasi.
-</p>
-</div>
+    <div class="section-title">
+        <span>DATA KEANGGOTAAN</span>
+        <h2>71 Anggota KDMP Unjur</h2>
+    </div>
 
-<div class="cards">
+    <div class="member-intro">
+        <p>
+            Berdasarkan data kegiatan koperasi, KDMP Unjur memiliki
+            71 anggota dan seluruhnya tercatat sebagai anggota aktif.
+            Keanggotaan menjadi dasar dalam membangun usaha bersama
+            dan mengembangkan manfaat koperasi bagi masyarakat.
+        </p>
+    </div>
 
-<div class="card">
-<div class="icon">🤝</div>
-<h3>Usaha Bersama</h3>
-<p>
-Mengembangkan potensi desa melalui kerja sama koperasi dan anggota.
-</p>
-</div>
+    <div class="member-stats">
 
-<div class="card">
-<div class="icon">🏘️</div>
-<h3>Untuk Masyarakat</h3>
-<p>
-Memberikan pelayanan dan manfaat bagi masyarakat Desa Unjur.
-</p>
-</div>
+        <div class="member-stat">
+            <strong>71</strong>
+            <span>Total Anggota</span>
+        </div>
 
-<div class="card">
-<div class="icon">📈</div>
-<h3>Pengembangan</h3>
-<p>
-Usaha dikembangkan secara bertahap sesuai potensi dan kebutuhan desa.
-</p>
-</div>
+        <div class="member-stat">
+            <strong>71</strong>
+            <span>Anggota Aktif</span>
+        </div>
 
-<div class="card">
-<div class="icon">💼</div>
-<h3>Anggota</h3>
-<p>
-Anggota menjadi bagian penting dalam kegiatan usaha koperasi.
-</p>
-</div>
+        <div class="member-stat">
+            <strong>2</strong>
+            <span>Sukarela</span>
+        </div>
 
-</div>
+        <div class="member-stat">
+            <strong>0</strong>
+            <span>Karyawan</span>
+        </div>
+
+    </div>
+
+    <div class="section-title">
+        <span>PERAN ANGGOTA</span>
+        <h2>Anggota Sebagai Penggerak Koperasi</h2>
+    </div>
+
+    <div class="member-grid">
+
+        <div class="member-card">
+            <div class="member-icon">🤝</div>
+            <h3>Usaha Bersama</h3>
+            <p>
+                Anggota menjadi bagian dari kegiatan usaha koperasi
+                dan pengembangan potensi ekonomi Desa Unjur.
+            </p>
+        </div>
+
+        <div class="member-card">
+            <div class="member-icon">🌾</div>
+            <h3>Potensi Desa</h3>
+            <p>
+                Anggota dapat berperan dalam pengembangan hasil
+                pertanian dan produk lokal yang memiliki potensi ekonomi.
+            </p>
+        </div>
+
+        <div class="member-card">
+            <div class="member-icon">📈</div>
+            <h3>Pengembangan</h3>
+            <p>
+                Partisipasi anggota menjadi bagian penting dalam
+                pengembangan unit usaha koperasi secara bertahap.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="info-box">
+        <h2>Keanggotaan dan Koperasi</h2>
+
+        <p>
+            Koperasi dibangun atas semangat kebersamaan. Karena itu,
+            anggota tidak hanya menjadi penerima manfaat, tetapi juga
+            menjadi bagian dari proses pengembangan usaha koperasi.
+        </p>
+
+        <ul>
+            <li>Mendukung kegiatan dan usaha koperasi.</li>
+            <li>Berpartisipasi dalam pengembangan potensi desa.</li>
+            <li>Mendukung pemasaran produk lokal.</li>
+            <li>Menjalin kerja sama antaranggota.</li>
+            <li>Berpartisipasi dalam kegiatan koperasi sesuai ketentuan yang berlaku.</li>
+        </ul>
+    </div>
+
+    <div class="member-cta">
+        <h2>Ingin Mengenal KDMP Unjur Lebih Dekat?</h2>
+
+        <p>
+            Pelajari profil koperasi, unit usaha, produk, serta
+            berbagai kegiatan yang dikembangkan oleh KDMP Unjur.
+        </p>
+
+        <div class="cta-buttons">
+            <a href="profil.html">Lihat Profil</a>
+            <a href="unit-usaha.html" class="secondary">Unit Usaha</a>
+        </div>
+    </div>
+
 </section>
 
 <footer>
-<div>
-<h3>KDMP UNJUR</h3>
-<p>Koperasi Desa Merah Putih Unjur</p>
-</div>
-<p>© 2026 KDMP Unjur</p>
+    <div>
+        <h3>KDMP UNJUR</h3>
+        <p>Koperasi Desa Merah Putih Unjur</p>
+    </div>
+
+    <p>© 2026 KDMP Unjur</p>
 </footer>
+
+<script>
+function updateClock() {
+    const now = new Date();
+
+    const time = now.toLocaleTimeString('id-ID', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+    });
+
+    const date = now.toLocaleDateString('id-ID', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    });
+
+    const timeEl = document.getElementById('clockTime');
+    const dateEl = document.getElementById('clockDate');
+
+    if (timeEl) timeEl.textContent = time;
+    if (dateEl) dateEl.textContent = date;
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+</script>
 
 </body>
 </html>
